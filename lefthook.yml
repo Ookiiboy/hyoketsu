@@ -1,0 +1,26 @@
+pre-commit:
+  commands:
+    # Automatically format all nix files
+    nix-format:
+      glob: "*.{nix}"
+      run: nix fmt .
+    # Check for anti-patterns
+    statix:
+      glob: "*.{nix}"
+      run: statix check .
+    # Check for dead code
+    deadnix:
+      glob: "*.{nix}"
+      run: deadnix .
+    # Check shell scripts
+    shellcheck:
+      glob: "*.{sh}"
+      run: shellcheck {staged_files}
+    # Check makefiles for issues
+    checkmake:
+      glob: "makefile"
+      run: checkmake {staged_files}
+    #Dry-run test build of current machine
+    dry-run:
+      glob: "*.{nix}"
+      run: sudo nixos-rebuild dry-activate --flake .
