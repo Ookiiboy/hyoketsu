@@ -17,3 +17,5 @@ add-hooks: ## Dev - Install git hooks.
 update: ## Dev - Update the flake
 	nix flake update
 
+dev:
+	deno task start

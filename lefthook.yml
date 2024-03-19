@@ -20,3 +20,5 @@ pre-commit:
     checkmake:
       glob: "makefile"
       run: checkmake {staged_files}
+    deno-check:
+      run: deno task check

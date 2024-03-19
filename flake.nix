@@ -22,6 +22,7 @@
     devShells = eachSystem (pkgs: {
       default = pkgs.mkShell {
         SHELL_ENV = "dev";
+        PORT = 6969;
         buildInputs = with pkgs; [
           lefthook
           shellcheck
