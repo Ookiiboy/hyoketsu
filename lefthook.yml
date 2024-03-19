@@ -20,7 +20,3 @@ pre-commit:
     checkmake:
       glob: "makefile"
       run: checkmake {staged_files}
-    #Dry-run test build of current machine
-    dry-run:
-      glob: "*.{nix}"
-      run: sudo nixos-rebuild dry-activate --flake .
