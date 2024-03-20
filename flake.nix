@@ -31,6 +31,8 @@
           statix
           deadnix
           deno
+          # Typescript LSP for SublimeText runs on node
+          nodejs_20
         ];
       };
       production = pkgs.mkShell {
