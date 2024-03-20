@@ -10,17 +10,24 @@ export const handler: Handlers = {
   },
   async POST(req, ctx) {
     const form = await req.formData();
+    const question = form.get("question")?.toString().trim();
     const options = form.get("pollOptions")?.toString().split(/\r?\n/)
       // remove empties
       .filter(opt => !!opt);
 
+    // TODO filter out dupes
+
     if (!options || options.length === 0) {
-      // handle error
+      // TODO handle error
+    }
+
+    if (!question || question.length === 0) {
+      // TODO handle
     }
 
     const unsaved: UnsavedPoll = {
       type: 'multiple',
-      question: 'What would you like?',
+      question,
       options
     };
 
