@@ -7,6 +7,10 @@ import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
+import * as $poll_id_results from "./routes/poll/[id]/results.tsx";
+import * as $poll_id_share from "./routes/poll/[id]/share.tsx";
+import * as $poll_id_vote from "./routes/poll/[id]/vote.tsx";
+import * as $poll_new from "./routes/poll/new.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -17,6 +21,10 @@ const manifest = {
     "./routes/api/joke.ts": $api_joke,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
+    "./routes/poll/[id]/results.tsx": $poll_id_results,
+    "./routes/poll/[id]/share.tsx": $poll_id_share,
+    "./routes/poll/[id]/vote.tsx": $poll_id_vote,
+    "./routes/poll/new.tsx": $poll_new,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
