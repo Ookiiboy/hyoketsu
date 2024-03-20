@@ -1,5 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
 import { osType } from "$std/path/_os.ts";
+import { RouteContext, Handlers } from "$fresh/server.ts";
+import { UnsavedPoll } from '../../lib/poll.ts';
+import { db } from '../../lib/db/db.ts';
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -7,15 +10,27 @@ export const handler: Handlers = {
   },
   async POST(req, ctx) {
     const form = await req.formData();
-    const options = form.get("pollOptions")?.toString().split(/\r?\n/);
-    const id = form.get("id")?.toString();
-    console.log(options); 
-    // write to db?
-    
+    const options = form.get("pollOptions")?.toString().split(/\r?\n/)
+      // remove empties
+      .filter(opt => !!opt);
+
+    if (!options || options.length === 0) {
+      // handle error
+    }
+
+    const unsaved: UnsavedPoll = {
+      type: 'multiple',
+      question: 'What would you like?',
+      options
+    };
+
+    const poll = db.createPoll(unsaved);
+
+    console.log(poll);
 
     // Redirect user to thank you page.
     const headers = new Headers();
-    headers.set("location", `${id}/share`);
+    headers.set("location", `${poll.id}/share`);
     return new Response(null, {
       status: 303,
       headers,
@@ -23,16 +38,20 @@ export const handler: Handlers = {
   },
 };
 
-export default function Subscribe() {
-  const id = btoa(Date.now().toString())
+export default function New() {
   return (
     <>
       <form method="post">
-        <input type="hidden" name="id" value={id}></input>
-        <textarea type="text" name="pollOptions"/><br/>
+        <div>
+          <label for="question">Question</label>
+          <input type="text" name="question" id="question" />
+        </div>
+        <div>
+          <label for="pollOptions">Options</label>
+          <textarea name="pollOptions" id="pollOptions"/>
+        </div>
         <button type="submit">Make Poll</button>
       </form>
     </>
   );
 }
-
