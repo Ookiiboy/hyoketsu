@@ -1,16 +1,24 @@
-# Fresh project
+# Hyōketsu
 
-Your new Fresh project is ready to go. You can follow the Fresh "Getting
-Started" guide here: https://fresh.deno.dev/docs/getting-started
+Hyōketsu is a simple and ephemeral voting system.
+
+It's build on `Deno` and [`fresh`](https://fresh.deno.dev/docs/getting-started).
 
 ### Usage
 
-Make sure to install Deno: https://deno.land/manual/getting_started/installation
+Use `nix` package-manager, install `direnv`. Then,`cd` into the project folder.
+It should download all the depedencies.
 
-Then start the project:
+Install the githooks by typing:
 
 ```
-deno task start
+make add-hooks
+```
+
+Run the dev server..
+
+```
+make dev
 ```
 
 This will watch the project directory and restart as necessary.
