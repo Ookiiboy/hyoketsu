@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { osType } from "$std/path/_os.ts";
 import { RouteContext, Handlers } from "$fresh/server.ts";
-import { UnsavedPoll } from '../../lib/poll.ts';
+import { UnsavedPoll, MultipleChoiceResponses } from '../../lib/poll.ts';
 import { db } from '../../lib/db/db.ts';
 
 export const handler: Handlers = {
@@ -28,7 +28,11 @@ export const handler: Handlers = {
     const unsaved: UnsavedPoll = {
       type: 'multiple',
       question,
-      options
+      options,
+      responses: options.reduce((responses, option) => {
+        responses[option] = 0;
+        return responses;
+      }, {} as MultipleChoiceResponses)
     };
 
     const poll = db.createPoll(unsaved);

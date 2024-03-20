@@ -1,3 +1,7 @@
+export type MultipleChoiceResponses = {
+  [key: string]: number
+};
+
 export type MultipleChoicePoll = {
   id: string,
   type: 'multiple',
@@ -5,6 +9,7 @@ export type MultipleChoicePoll = {
   options: Array<string>,
   minSelections?: number,
   maxSelections?: number,
+  responses: MultipleChoiceResponses
 };
 
 export type Poll = MultipleChoicePoll;
