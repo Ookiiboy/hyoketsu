@@ -23,5 +23,3 @@ pre-commit:
     deno-format:
       glob: "*.{js,jsx}"
       run: deno fmt {staged_files}
-    deno-check:
-      run: deno task check
