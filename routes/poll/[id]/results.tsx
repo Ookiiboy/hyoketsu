@@ -5,8 +5,13 @@ import { db } from '../../../lib/db/db.ts';
 export default function Results(props: PageProps<Poll>) {
   return (
     <div>
-      this is where we show the results of the poll
-      <h1>You're looking at the results of ID: {props.params.id}</h1>
+      <h1>{props.data?.question}</h1>
+      <ul>
+        {Object.entries(props.data.responses).map((a, i) => {
+          console.log(i);
+          return <li key={i}>{a[0]} - {a[1]}</li>
+        })}
+      </ul>
       <pre>{JSON.stringify(props.data, null, 2)}</pre>
     </div>
   );

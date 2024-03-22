@@ -1,8 +1,9 @@
-import { Handlers } from "$fresh/server.ts";
 import { osType } from "$std/path/_os.ts";
 import { RouteContext, Handlers } from "$fresh/server.ts";
 import { UnsavedPoll, MultipleChoiceResponses } from '../../lib/poll.ts';
 import { db } from '../../lib/db/db.ts';
+import { BottomBar } from "../../components/BottomBar.tsx";
+import { Button } from "../../components/Button.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -44,7 +45,7 @@ export const handler: Handlers = {
     headers.set("location", `${poll.id}/share`);
     return new Response(null, {
       status: 303,
-      headers,
+      headers
     });
   },
 };
@@ -61,7 +62,9 @@ export default function New() {
           <label for="pollOptions">Options</label>
           <textarea name="pollOptions" id="pollOptions"/>
         </div>
-        <button type="submit">Make Poll</button>
+        <BottomBar>
+        <Button type="submit">Make Poll</Button>
+        </BottomBar>
       </form>
     </>
   );

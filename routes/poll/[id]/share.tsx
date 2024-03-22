@@ -1,4 +1,5 @@
 import { PageProps } from "$fresh/server.ts";
+import { BottomBar } from "../../../components/BottomBar.tsx";
 
 export default function Share(props: PageProps) {
   const url = new URL(props.url);
@@ -9,9 +10,9 @@ export default function Share(props: PageProps) {
       this is where we generate the QR code to share, and give you a button to
       copy the link
       <h1>You're looking at the share page of ID: {props.params.id}</h1>
-
-      Vote here: <a href={url.toString()}>{url.toString()}</a>
-
+      <BottomBar>
+      <a className="c-button" href={url.toString()}>Vote Here</a>
+      </BottomBar>
       {/*<pre>{JSON.stringify(props, null, 2)}</pre>*/}
     </div>
   );

@@ -1,25 +1,27 @@
 import { PageProps } from "$fresh/server.ts";
 import { Poll } from '../../../lib/poll.ts';
 import { db } from '../../../lib/db/db.ts';
+import { RadioButton } from "../../../components/RadioButton.tsx";
+import { RadioFieldset } from "../../../components/RadioFieldset.tsx";
+import { Button } from "../../../components/Button.tsx";
+import { FooterLock } from "../../../components/FooterLock.tsx";
+import { BottomBar } from "../../../components/BottomBar.tsx";
 
 export default function Vote(props: PageProps<Poll>) {
   return (
     <div>
       <form method="post">
-        <p>{props.data.question}</p>
-        <div>
+        <h1 style={{paddingBottom: "var(--default-spacing)"}} className={`h3`}>{props.data.question}</h1>
+        <RadioFieldset id="vote">
           {
             props.data.options.map(option => (
-              <>
-                <label>
-                  <input type="radio" value={option} name="selections" key={option}/> {option}
-                </label>
-                <br/>
-              </>
+              <RadioButton name="vote" value={option} key={option}>{option}</RadioButton>
             ))
           }
-        </div>
-        <button type="submit">Submit</button>
+        </RadioFieldset>
+        <BottomBar>
+          <Button type="submit">Cast Your Vote</Button>
+        </BottomBar>
       </form>
       {/*<pre>{JSON.stringify(props.data, null, 2)}</pre>*/}
     </div>

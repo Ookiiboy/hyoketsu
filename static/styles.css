@@ -1,129 +1,386 @@
-
+/*******************************************************************************
+ Global Variables
+********************************************************************************/
+:root {
+  --default-spacing: 1em;
+  --default-font-size: 20px;
+  --default-line-height: 32px;
+  /* Colors */
+  --primary-fg-color: #ffffff;
+  --primary-bg-color: #111111;
+}
+/*******************************************************************************
+ Normalize
+********************************************************************************/
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-* {
   margin: 0;
 }
-button {
-  color: inherit;
-}
-button, [role="button"] {
-  cursor: pointer;
-}
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 1em;
-}
-img,
-svg {
-  display: block;
-}
-img,
-video {
-  max-width: 100%;
-  height: auto;
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
+figcaption,
+figure,
+main {
+  display: block;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+b,
+strong {
+  font-weight: bolder;
+}
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+audio,
+video {
+  display: inline-block;
+}
+
+/* Form Resets */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+legend {
+  box-sizing: border-box;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+progress {
+  display: inline-block;
+  vertical-align: baseline;
+}
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+details,
+menu {
+  display: block;
+}
+summary {
+  display: list-item;
+}
+/*******************************************************************************
+ Box-Sizing
+********************************************************************************/
 html {
-  line-height: 1.5;
-  -webkit-text-size-adjust: 100%;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  box-sizing: border-box;
 }
-.transition-colors {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
-.my-6 {
-  margin-bottom: 1.5rem;
-  margin-top: 1.5rem;
+/*******************************************************************************
+ Other Resets
+********************************************************************************/
+body,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, dd, ol, ul,
+figure,
+hr,
+fieldset, legend {
+  margin:  0;
+  padding: 0;
 }
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1em;
+  font-weight: normal;
 }
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+li > ol,
+li > ul {
+  margin-bottom: 0;
 }
-.my-4 {
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-.mx-auto {
-  margin-left: auto;
+fieldset {
+  min-width: 0;
+  border: 0;
+}
+/*******************************************************************************
+ Single Direction Margins
+********************************************************************************/
+address,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, ol, ul,
+figure,
+hr,
+table,
+fieldset {
+  margin-bottom: var(--default-spacing);
+}
+dd, ol, ul {
+  margin-left: var(--default-spacing);
+}
+
+/*******************************************************************************
+ Page Settings
+********************************************************************************/
+html {
+  font-size: var(--default-font-size); 
+  line-height: var(--default-line-height);
+  overflow-y: scroll;
+  min-height: 100%;
+}
+
+/*******************************************************************************
+ Elements
+********************************************************************************/
+
+/* Body ************************************************************************/
+body {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-fg-color);
+}
+
+/* Headings ********************************************************************/
+body, .article {
+  font-family: "M PLUS 1", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.h1 {
+  font-size: 2.85em;
+  line-height: 1.12280702em;
+  margin-top: 0.56140351em;
+  margin-bottom: 1.12280702em;
+}
+.h2 {
+  font-size: 2em;
+  line-height: 1.6em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+.h3 {
+  font-size: 1.4em;
+  line-height: 1.14285714em;
+  margin-top: 1.14285714em;
+  margin-bottom: 0em;
+}
+.h4 {
+  font-size: 1em;
+  line-height: 1.6em;
+  margin-top: 1.6em;
+  margin-bottom: 0em;
+}
+.h5 {
+  font-size: 1em;
+  line-height: 1.6em;
+  margin-top: 1.6em;
+  margin-bottom: 0em;
+}
+p, ul, ol, pre, table, blockquote {
+  margin-top: 0em;
+  margin-bottom: 1.6em;
+}
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+/* Let's make sure all's aligned */
+hr, .hr {
+  border: 1px solid var(--primary-fg-color);
+  margin: -1px 0;
+}
+a, b, i, strong, em, small, code {
+  line-height: 0;
+}
+sub, sup {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/*******************************************************************************
+ Objects
+********************************************************************************/
+/* Footer Lock ****************************************************************/
+.o-footer-lock {
+  position: sticky;
+  bottom: 0;
+}
+
+/*******************************************************************************
+ Components
+********************************************************************************/
+/* Container *******************************************************************/
+.c-container {
+  padding-left: var(--default-spacing);
+  padding-right: var(--default-spacing);
+  max-width: 400px;
   margin-right: auto;
+  margin-left: auto;
 }
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+/* Radio Fieldset **************************************************************/
+.c-radio-fieldset > * + *{
+  margin-top: var(--default-spacing);
 }
-.py-8 {
-  padding-bottom: 2rem;
-  padding-top: 2rem;
+
+/* Radio Button ****************************************************************/
+.c-radio-button {
+  display: block;
 }
-.bg-\[\#86efac\] {
-  background-color: #86efac;
+.c-radio-button__input:checked ~ .c-radio-button__text {
+  background-color: var(--primary-fg-color);
+  color: var(--primary-bg-color);
 }
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+.c-radio-button__input {
+  display: none;
 }
-.py-6 {
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
-}
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-.py-1 {
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-}
-.border-gray-500 {
-  border-color: #6b7280;
-}
-.bg-white {
-  background-color: #fff;
-}
-.flex {
-  display: flex;
-}
-.gap-8 {
-  grid-gap: 2rem;
-  gap: 2rem;
-}
-.font-bold {
-  font-weight: 700;
-}
-.max-w-screen-md {
-  max-width: 768px;
-}
-.flex-col {
-  flex-direction: column;
-}
-.items-center {
+.c-radio-button__text {
+  user-select: none;
   align-items: center;
-}
-.justify-center {
+  border-radius: 10px;
+  padding: var(--default-spacing);
+  border: 1px solid var(--primary-fg-color);
+  display: flex;
+  font-weight: bold;
+  height: 100%;
   justify-content: center;
+  text-align: center;
+  width: 100%;
+  transition: color .2s,
+    background-color .2s,
+    transform .1s;
 }
-.border-2 {
-  border-width: 2px;
+.c-radio-button__text:active {
+  transform: scale(.95);
 }
-.rounded {
-  border-radius: 0.25rem;
+/* Button *********************************************************************/
+.c-button {
+  user-select: none;
+  align-items: center;
+  color: var(--primary-fg-color);
+  background-color: var(--primary-bg-color);
+  text-decoration: none;
+  border-radius: 10px;
+  padding: var(--default-spacing);
+  border: 1px solid var(--primary-fg-color);
+  display: flex;
+  font-weight: bold;
+  height: 100%;
+  min-height: calc(var(--default-spacing) * 3 + 6px);
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  transition: color .2s,
+    background-color .2s,
+    transform .1s;
 }
-.hover\:bg-gray-200:hover {
-  background-color: #e5e7eb;
+.c-button:active {
+  transform: scale(.9);
 }
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
+
+/* Bottom Bar *****************************************************************/
+.c-bottom-bar {
+  padding-top: var(--default-spacing);
+  padding-bottom: var(--default-spacing);
+  border-top: 1px solid var(--primary-fg-color);
+  background-color: var(--primary-bg-color);
 }
