@@ -5,9 +5,11 @@
   --default-spacing: 1em;
   --default-font-size: 20px;
   --default-line-height: 32px;
+  --default-radius: 10px;
   /* Colors */
   --primary-fg-color: #ffffff;
-  --primary-bg-color: #111111;
+  --primary-bg-color: #2f2200;
+  --primary-accent-color: #00ff7f;
 }
 /*******************************************************************************
  Normalize
@@ -317,6 +319,47 @@ sub {
   margin-right: auto;
   margin-left: auto;
 }
+/* Text Input ******************************************************************/
+.c-text-input {
+  padding-bottom: var(--default-spacing);
+}
+.c-text-input > * + * {
+  margin-top: var(--default-spacing);
+}
+.c-text-input__label {
+  display: block;
+}
+.c-text-input__input {
+  display: block;
+  background-color: var(--primary-fg-color);
+  color: var(--primary-bg-color);
+  border: 0;
+  border-radius: var(--default-radius);
+  padding: var(--default-spacing);
+  width: 100%;
+}
+/* Text Area *******************************************************************/
+.c-text-area {
+  padding-bottom: var(--default-spacing);
+}
+.c-text-area > * + * {
+  margin-top: var(--default-spacing);
+}
+.c-text-area__label {
+  display: block;
+}
+.c-text-area__textarea {
+  display: block;
+  background-color: var(--primary-fg-color);
+  color: var(--primary-bg-color);
+  border: 0;
+  border-radius: var(--default-radius);
+  padding: var(--default-spacing);
+  width: 100%;
+  max-width: 100%;
+  min-height: 30ex;
+}
+
 /* Radio Fieldset **************************************************************/
 .c-radio-fieldset > * + *{
   margin-top: var(--default-spacing);
@@ -359,7 +402,7 @@ sub {
   color: var(--primary-fg-color);
   background-color: var(--primary-bg-color);
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: var(--default-radius);
   padding: var(--default-spacing);
   border: 1px solid var(--primary-fg-color);
   display: flex;
@@ -377,10 +420,15 @@ sub {
   transform: scale(.9);
 }
 
+.c-button--primary {
+  background-color: var(--primary-accent-color);
+  border: none;
+  color: var(--primary-bg-color);
+}
+
 /* Bottom Bar *****************************************************************/
 .c-bottom-bar {
   padding-top: var(--default-spacing);
   padding-bottom: var(--default-spacing);
-  border-top: 1px solid var(--primary-fg-color);
   background-color: var(--primary-bg-color);
 }

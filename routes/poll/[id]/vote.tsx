@@ -4,7 +4,6 @@ import { db } from '../../../lib/db/db.ts';
 import { RadioButton } from "../../../components/RadioButton.tsx";
 import { RadioFieldset } from "../../../components/RadioFieldset.tsx";
 import { Button } from "../../../components/Button.tsx";
-import { FooterLock } from "../../../components/FooterLock.tsx";
 import { BottomBar } from "../../../components/BottomBar.tsx";
 
 export default function Vote(props: PageProps<Poll>) {
@@ -20,7 +19,7 @@ export default function Vote(props: PageProps<Poll>) {
           }
         </RadioFieldset>
         <BottomBar>
-          <Button type="submit">Cast Your Vote</Button>
+          <Button primary type="submit">Cast Your Vote</Button>
         </BottomBar>
       </form>
       {/*<pre>{JSON.stringify(props.data, null, 2)}</pre>*/}

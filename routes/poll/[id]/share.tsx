@@ -11,7 +11,7 @@ export default function Share(props: PageProps) {
       copy the link
       <h1>You're looking at the share page of ID: {props.params.id}</h1>
       <BottomBar>
-        <a className="c-button" href={url.toString()}>Vote Here</a>
+        <a className="c-button c-button--primary" href={url.toString()}>Vote Here</a>
       </BottomBar>
       {/*<pre>{JSON.stringify(props, null, 2)}</pre>*/}
     </div>

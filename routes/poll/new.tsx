@@ -4,6 +4,8 @@ import { UnsavedPoll, MultipleChoiceResponses } from '../../lib/poll.ts';
 import { db } from '../../lib/db/db.ts';
 import { BottomBar } from "../../components/BottomBar.tsx";
 import { Button } from "../../components/Button.tsx";
+import { TextInput } from "../../components/TextInput.tsx";
+import { TextArea } from "../../components/TextArea.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -12,18 +14,30 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     const form = await req.formData();
     const question = form.get("question")?.toString().trim();
-    const options = form.get("pollOptions")?.toString().split(/\r?\n/)
+    const options = form.get("options")?.toString().split(/\r?\n/)
       // remove empties
       .filter(opt => !!opt);
 
     // TODO filter out dupes
 
     if (!options || options.length === 0) {
-      // TODO handle error
+      const headers = new Headers();
+      headers.set("location", `new`);
+      return new Response(null, {
+        status: 400,
+        headers
+        // return ctx.render(), how?
+      });
     }
 
     if (!question || question.length === 0) {
-      // TODO handle
+      const headers = new Headers();
+      headers.set("location", `new`);
+      return new Response(null, {
+        status: 400,
+        headers
+        // return ctx.render(), how?
+      });
     }
 
     const unsaved: UnsavedPoll = {
@@ -54,16 +68,10 @@ export default function New() {
   return (
     <>
       <form method="post">
-        <div>
-          <label for="question">Question</label>
-          <input type="text" name="question" id="question" />
-        </div>
-        <div>
-          <label for="pollOptions">Options</label>
-          <textarea name="pollOptions" id="pollOptions"/>
-        </div>
+        <TextInput name="question" id="question" placeholder="Doughnuts or bagels?">Poll Question</TextInput>
+        <TextArea name="options" id="pollOptions" placeholder="One choice per line...">Poll Choices</TextArea>
         <BottomBar>
-        <Button type="submit">Make Poll</Button>
+        <Button primary type="submit">Make Poll</Button>
         </BottomBar>
       </form>
     </>
