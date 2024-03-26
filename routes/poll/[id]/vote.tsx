@@ -14,7 +14,7 @@ export default function Vote(props: PageProps<Poll>) {
         <RadioFieldset id="vote">
           {
             props.data.options.map(option => (
-              <RadioButton name="vote" value={option} key={option}>{option}</RadioButton>
+              <RadioButton name="selections" value={option} key={option}>{option}</RadioButton>
             ))
           }
         </RadioFieldset>
