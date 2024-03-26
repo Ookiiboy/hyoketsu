@@ -25,13 +25,11 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
-
 figcaption,
 figure,
 main {
   display: block;
 }
-
 hr {
   box-sizing: content-box;
   height: 0;
@@ -213,7 +211,6 @@ fieldset {
 dd, ol, ul {
   margin-left: var(--default-spacing);
 }
-
 /*******************************************************************************
  Page Settings
 ********************************************************************************/
@@ -223,17 +220,14 @@ html {
   overflow-y: scroll;
   min-height: 100%;
 }
-
 /*******************************************************************************
  Elements
 ********************************************************************************/
-
 /* Body ************************************************************************/
 body {
   background-color: var(--primary-bg-color);
   color: var(--primary-fg-color);
 }
-
 /* Headings ********************************************************************/
 body, .article {
   font-family: "M PLUS 1", sans-serif;
@@ -307,7 +301,6 @@ sub {
   position: sticky;
   bottom: 0;
 }
-
 /*******************************************************************************
  Components
 ********************************************************************************/
@@ -359,12 +352,10 @@ sub {
   max-width: 100%;
   min-height: 30ex;
 }
-
 /* Radio Fieldset **************************************************************/
 .c-radio-fieldset > * + *{
   margin-top: var(--default-spacing);
 }
-
 /* Radio Button ****************************************************************/
 .c-radio-button {
   display: block;
@@ -419,13 +410,11 @@ sub {
 .c-button:active {
   transform: scale(.9);
 }
-
 .c-button--primary {
   background-color: var(--primary-accent-color);
   border: none;
   color: var(--primary-bg-color);
 }
-
 /* Bottom Bar *****************************************************************/
 .c-bottom-bar {
   padding-top: var(--default-spacing);
