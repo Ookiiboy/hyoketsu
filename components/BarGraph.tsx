@@ -32,8 +32,9 @@ export function BarGraph(props: BarGraphProps) {
         {props.responses && responsesEntries
         .map((response, i) => {
             const value = (response[1] / totalityOfAllValues) * 100;
-            return <Bar value={value ? value : 0} key={i}>
-              {`${value ? value.toString().substring(0, 4) : "0"}% - ${response[0]}`}
+            const renderedValue = value ? value : 0;
+            return <Bar value={renderedValue} key={i}>
+              {`${renderedValue.toString().substring(0, 4)}% - ${response[0]}`}
             </Bar>
           })}
       </dl>
