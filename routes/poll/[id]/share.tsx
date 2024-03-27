@@ -9,7 +9,7 @@ export default function Share(props: PageProps) {
 
   return (
     <div>
-      <h1>Share</h1>
+      <h1 className={`h2`}>Share</h1>
       <div>
         <QrCode>{url.toString()}</QrCode>
         <ShareButton url={url}>Copy Voting Link</ShareButton>

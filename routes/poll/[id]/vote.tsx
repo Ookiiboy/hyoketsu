@@ -10,7 +10,7 @@ export default function Vote(props: PageProps<Poll>) {
   return (
     <div>
       <form method="post">
-        <h1 style={{paddingBottom: "var(--default-spacing)"}} className={`h3`}>{props.data.prompt}</h1>
+        <h1 className={`h2`}>{props.data.question}</h1>
         <RadioFieldset id="vote">
           {
             props.data.options.map(option => (

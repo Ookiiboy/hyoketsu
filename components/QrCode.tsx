@@ -8,7 +8,10 @@ type QrCodeProps = {
 
 export function QrCode(props: QrCodeProps)  {
   const { children } = props;
-  const qrCodeMarkup = useMemo(() => new QRCodeSVG(children).toString(), [children]);
+  const qrCodeMarkup = useMemo(() => new QRCodeSVG(children, {
+    bgColor: "#ffffff",
+    fgColor: "#2f2200",
+  }).toString(), [children]);
 
   return (
     <div className="c-qr-code" dangerouslySetInnerHTML={{__html: qrCodeMarkup}}></div>

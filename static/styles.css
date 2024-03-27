@@ -6,6 +6,7 @@
   --default-font-size: 20px;
   --default-line-height: 32px;
   --default-radius: 10px;
+  --default-border-size: 3px;
   /* Colors */
   --primary-fg-color: #ffffff;
   --primary-bg-color: #2f2200;
@@ -199,7 +200,6 @@ fieldset {
  Single Direction Margins
 ********************************************************************************/
 address,
-h1, h2, h3, h4, h5, h6,
 blockquote, p, pre,
 dl, ol, ul,
 figure,
@@ -350,6 +350,7 @@ sub {
   padding: var(--default-spacing);
   width: 100%;
   max-width: 100%;
+  min-width: 100%;
   min-height: 30ex;
 }
 /* Radio Fieldset **************************************************************/
@@ -372,7 +373,7 @@ sub {
   align-items: center;
   border-radius: 10px;
   padding: var(--default-spacing);
-  border: 1px solid var(--primary-fg-color);
+  border: var(--default-border-size) solid var(--primary-fg-color);
   display: flex;
   font-weight: bold;
   height: 100%;
@@ -395,7 +396,7 @@ sub {
   text-decoration: none;
   border-radius: var(--default-radius);
   padding: var(--default-spacing);
-  border: 1px solid var(--primary-fg-color);
+  border: var(--default-border-size) solid var(--primary-fg-color);
   display: flex;
   font-weight: bold;
   height: 100%;
@@ -420,4 +421,34 @@ sub {
   padding-top: var(--default-spacing);
   padding-bottom: var(--default-spacing);
   background-color: var(--primary-bg-color);
+}
+/* QR Code ********************************************************************/
+.c-qr-code {
+  padding: calc(var(--default-spacing) / 2);
+}
+/* Bar Graph ******************************************************************/
+.c-bar-graph {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-left: var(--default-border-size) solid var(--primary-fg-color);
+  padding-left: calc(var(--default-spacing) / 2);
+  padding-bottom: calc(var(--default-spacing) / 2);
+}
+.c-bar-graph > * + * {
+ margin-top: var(--default-spacing);
+}
+.c-bar-graph__content {
+  font-weight: bold;
+  padding-left: calc(var(--default-spacing) / 2);
+}
+.c-bar-graph__bar {
+  background-color: var(--primary-accent-color);
+  border-top-right-radius: var(--default-radius);
+  border-bottom-right-radius: var(--default-radius);
+  height: calc(var(--default-spacing) * 2);
+  margin-left: 0;
+  margin-top: calc(var(--default-spacing) / 2);
 }

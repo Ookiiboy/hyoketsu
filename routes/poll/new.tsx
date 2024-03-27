@@ -69,6 +69,7 @@ function unique<T>(values: Iterable<T>): Array<T> {
 export default function New() {
   return (
     <>
+      <h1 className={`h2`}>New Poll</h1>
       <form method="post">
         <TextInput name="prompt" id="prompt" placeholder="Doughnuts or bagels?">Poll Question</TextInput>
         <TextArea name="options" id="pollOptions" placeholder="One choice per line...">Poll Choices</TextArea>
