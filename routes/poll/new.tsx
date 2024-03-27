@@ -14,11 +14,9 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     const form = await req.formData();
     const prompt = form.get("prompt")?.toString().trim();
-    const options = form.get("options")?.toString().split(/\r?\n/)
+    const options = unique((form.get("options")?.toString() || '').split(/\r?\n/)
       // remove empties
-      .filter(opt => !!opt);
-
-    // TODO filter out dupes
+      .filter(opt => !!opt));
 
     if (!options || options.length === 0) {
       const headers = new Headers();
@@ -63,6 +61,10 @@ export const handler: Handlers = {
     });
   },
 };
+
+function unique<T>(values: Iterable<T>): Array<T> {
+  return Array.from(new Set<T>(values));
+}
 
 export default function New() {
   return (
