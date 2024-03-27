@@ -1,16 +1,25 @@
-export type MultipleChoiceResponses = {
-  [key: string]: number
+type PollType = 'multiple';
+
+type Common = {
+  id: string;
+  type: PollType;
+  /** Milliseconds since Jan 1, 1970 UTC */
+  createdDate: number;
+  /** The question */
+  prompt: string;
 };
 
-export type MultipleChoicePoll = {
-  id: string,
+export type MultipleChoiceResponses = {
+  [option: string]: number;
+};
+
+export type MultipleChoicePoll = Common & {
   type: 'multiple',
-  question: string,
   options: Array<string>,
   minSelections?: number,
   maxSelections?: number,
-  responses: MultipleChoiceResponses
+  responses: MultipleChoiceResponses,
 };
 
 export type Poll = MultipleChoicePoll;
-export type UnsavedPoll = Omit<Poll, 'id'>;
+export type UnsavedPoll = Omit<Poll, 'id' | 'createdDate'>;

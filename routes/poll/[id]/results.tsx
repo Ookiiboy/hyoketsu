@@ -5,7 +5,7 @@ import { db } from '../../../lib/db/db.ts';
 export default function Results(props: PageProps<Poll>) {
   return (
     <div>
-      <h1>{props.data?.question}</h1>
+      <h1>{props.data.prompt}</h1>
       <ul>
         {Object.entries(props.data.responses).map((a, i) => {
           console.log(i);

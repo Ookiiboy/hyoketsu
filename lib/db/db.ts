@@ -3,7 +3,7 @@ import { adapter } from './session-storage.ts';
 import { Poll, UnsavedPoll } from '../poll.ts';
 
 function create(adapter: Adapter) {
-  const nextId = () => btoa(Date.now().toString());
+  const nextId = () => String(Date.now());
 
   return {
     createPoll(unsaved: UnsavedPoll) {
@@ -11,6 +11,7 @@ function create(adapter: Adapter) {
       const poll: Poll = {
         ...unsaved,
         id,
+        createdDate: Date.now(),
       };
 
       adapter.set(id, JSON.stringify(poll));

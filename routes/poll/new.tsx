@@ -13,7 +13,7 @@ export const handler: Handlers = {
   },
   async POST(req, ctx) {
     const form = await req.formData();
-    const question = form.get("question")?.toString().trim();
+    const prompt = form.get("prompt")?.toString().trim();
     const options = form.get("options")?.toString().split(/\r?\n/)
       // remove empties
       .filter(opt => !!opt);
@@ -30,7 +30,7 @@ export const handler: Handlers = {
       });
     }
 
-    if (!question || question.length === 0) {
+    if (!prompt || prompt.length === 0) {
       const headers = new Headers();
       headers.set("location", `new`);
       return new Response(null, {
@@ -42,7 +42,7 @@ export const handler: Handlers = {
 
     const unsaved: UnsavedPoll = {
       type: 'multiple',
-      question,
+      prompt,
       options,
       responses: options.reduce((responses, option) => {
         responses[option] = 0;
@@ -68,7 +68,7 @@ export default function New() {
   return (
     <>
       <form method="post">
-        <TextInput name="question" id="question" placeholder="Doughnuts or bagels?">Poll Question</TextInput>
+        <TextInput name="prompt" id="prompt" placeholder="Doughnuts or bagels?">Poll Question</TextInput>
         <TextArea name="options" id="pollOptions" placeholder="One choice per line...">Poll Choices</TextArea>
         <BottomBar>
         <Button primary type="submit">Make Poll</Button>
