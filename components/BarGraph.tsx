@@ -28,17 +28,16 @@ export function BarGraph(props: BarGraphProps) {
 
   return (
     <>
-    <h2 className={`h4`}>Total Votes: {totalityOfAllValues}</h2>
-    <br/>
-    <dl class={`c-bar-graph`}>
-      {props.responses && responsesEntries
-      .map((response, i) => {
-          const value = (response[1] / totalityOfAllValues) * 100;
-          return <Bar value={value ? value : 0} key={i}>
-            {`${value.toString().substring(0, 4)}% - ${response[0]}`}
-          </Bar>
-        })}
-    </dl>
+      <dl class={`c-bar-graph`}>
+        {props.responses && responsesEntries
+        .map((response, i) => {
+            const value = (response[1] / totalityOfAllValues) * 100;
+            return <Bar value={value ? value : 0} key={i}>
+              {`${value ? value.toString().substring(0, 4) : "0"}% - ${response[0]}`}
+            </Bar>
+          })}
+      </dl>
+      <h2 className={`h5`}>Total Votes: {totalityOfAllValues}</h2>
     </>
   );
 }

@@ -8,15 +8,13 @@ export default function Share(props: PageProps) {
   url.pathname = `/poll/${props.params.id}/vote`
 
   return (
-    <div>
+    <>
       <h1 className={`h2`}>Share</h1>
-      <div>
-        <QrCode>{url.toString()}</QrCode>
-        <ShareButton url={url}>Copy Voting Link</ShareButton>
-      </div>
+      <QrCode>{url.toString()}</QrCode>
+      <ShareButton url={url}>Copy Voting Link</ShareButton>
       <BottomBar>
         <a className="c-button c-button--primary" href={url.toString()}>Vote Here</a>
       </BottomBar>
-    </div>
+    </>
   );
 }
