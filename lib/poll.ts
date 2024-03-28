@@ -16,8 +16,6 @@ export type MultipleChoiceResponses = {
 export type MultipleChoicePoll = Common & {
   type: 'multiple',
   options: Array<string>,
-  minSelections?: number,
-  maxSelections?: number,
   responses: MultipleChoiceResponses,
 };
 
