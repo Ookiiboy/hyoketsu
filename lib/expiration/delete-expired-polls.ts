@@ -1,8 +1,7 @@
 import { db } from '../db/db.ts';
 import { isValid, createdDateFromId } from '../poll-id.ts';
 
-// const MAX_POLL_AGE = 20 * 60 * 1000; // 20 minutes
-const MAX_POLL_AGE = 0.5 * 60 * 1000; // 20 minutes
+const MAX_POLL_AGE = 20 * 60 * 1000; // 20 minutes
 
 export function isExpiredPollId(key: string): boolean {
   if (isValid(key)) {
