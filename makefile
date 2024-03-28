@@ -17,5 +17,8 @@ add-hooks: ## Dev - Install git hooks.
 update: ## Dev - Update the flake
 	nix flake update
 
+update-fresh: ## Dev -- Update Fresh
+	deno run -A -r https://fresh.deno.dev/update
+
 dev:
 	deno task start
