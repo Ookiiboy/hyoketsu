@@ -13,8 +13,8 @@ export function ShareButton(props: ShareButtonProps) {
   } = props;
 
   const copyUrl = () => {
-    navigator.clipboard.writeText(url.toString());
-    alert('Copied!');
+    navigator.clipboard.writeText(url.toString())
+      .then(() => alert('Copied!'));
   };
 
   return (
