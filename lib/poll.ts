@@ -1,7 +1,9 @@
+import { PollId } from './poll-id.ts';
+
 type PollType = 'multiple';
 
 type Common = {
-  id: string;
+  id: PollId;
   type: PollType;
   /** Milliseconds since Jan 1, 1970 UTC */
   createdDate: number;

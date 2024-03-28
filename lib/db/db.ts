@@ -1,17 +1,18 @@
-import { Adapter } from './adapter.ts';
+import { Adapter, DeletePredicate } from './adapter.ts';
 import { adapter } from './session-storage.ts';
 import { Poll, UnsavedPoll } from '../poll.ts';
+import { nextId, createdDateFromId } from '../poll-id.ts';
 
 function create(adapter: Adapter) {
-  const nextId = () => String(Date.now());
-
   return {
     createPoll(unsaved: UnsavedPoll) {
       const id = nextId();
+      const createdDate = createdDateFromId(id);
+
       const poll: Poll = {
         ...unsaved,
         id,
-        createdDate: Date.now(),
+        createdDate,
       };
 
       adapter.set(id, JSON.stringify(poll));
@@ -27,6 +28,9 @@ function create(adapter: Adapter) {
     },
     deletePoll(id: string) {
       adapter.delete(id);
+    },
+    deleteWhere(pred: DeletePredicate) {
+      return adapter.deleteWhere(pred);
     }
   };
 }
