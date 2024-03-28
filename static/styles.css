@@ -8,9 +8,12 @@
   --default-radius: 10px;
   --default-border-size: 3px;
   /* Colors */
-  --primary-fg-color: #ffffff;
-  --primary-bg-color: #2f2200;
-  --primary-accent-color: #00ff7f;
+  --color-values-fg: 255, 255, 255;
+  --color-values-bg: 47, 34, 0;
+  --color-values-accent: 0, 255, 127;
+  --primary-fg-color: rgb(var(--color-values-fg));
+  --primary-bg-color: rgb(var(--color-values-bg));
+  --primary-accent-color: rgb(var(--color-values-accent));
 }
 /*******************************************************************************
  Normalize
@@ -409,12 +412,19 @@ sub {
     transform .1s;
 }
 .c-button:active {
-  transform: scale(.9);
+  transform: scale(.98);
 }
+.c-button:hover {
+  background-color: rgba(var(--color-values-fg), .1);
+}
+/* Button - Primary */
 .c-button--primary {
   background-color: var(--primary-accent-color);
   border: none;
   color: var(--primary-bg-color);
+}
+.c-button--primary:hover {
+  background-color: rgba(var(--color-values-accent), .8);
 }
 /* Bottom Bar *****************************************************************/
 .c-bottom-bar {
