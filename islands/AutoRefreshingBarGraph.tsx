@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from 'preact/hooks';
+import { useEffect, useState, useRef, useCallback } from 'preact/hooks';
 import { BarGraph, BarGraphProps } from "../components/BarGraph.tsx";
 import { PollId } from '../lib/poll-id.ts';
 import { Poll } from '../lib/poll.ts';
@@ -27,19 +27,24 @@ function useAutoRefresh(settings: AutoRefreshSettings): AutoRefreshingBarGraphPr
   const { pollId, initialResponses, interval } = settings;
   const [responses, setResponses] = useState(initialResponses);
   const [active, setActive] = useState(true);
+  const isLoading = useRef(false);
 
   useVisibilityChange(setActive);
 
   const refreshData = useCallback(() => {
-      return fetch(`/api/poll/${pollId}`)
-        .then(resp => resp.json())
-        .then(json => {
-          const poll = json as Poll;
-          setResponses(poll.responses);
-        })
-        .catch(error => console.error(error));
+    if (isLoading.current) return;
+
+    isLoading.current = true;
+    fetch(`/api/poll/${pollId}`)
+      .then(resp => resp.json())
+      .then(json => {
+        const poll = json as Poll;
+        setResponses(poll.responses);
+      })
+      .catch(error => console.error(error))
+      .finally(() => isLoading.current = false);
     },
-    [pollId, setResponses]
+    [pollId, setResponses, isLoading]
   );
 
   useInterval({
