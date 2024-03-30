@@ -11,7 +11,7 @@ export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
   const responses = useAutoRefresh({
     pollId: props.pollId,
     initialResponses: props.responses,
-    interval: 5000
+    interval: 10 * 1000
   });
 
   return <BarGraph responses={responses} />
