@@ -1,5 +1,6 @@
 import { JSX } from "preact";
 import { IS_BROWSER } from "$fresh/runtime.ts";
+import { Poll } from '../lib/poll.ts';
 
 interface BarProps extends JSX.HTMLAttributes<HTMLDetailsElement> {
   value: number;
@@ -14,12 +15,8 @@ const Bar = (props: BarProps) =>
     </dd>
   </>;
 
-interface ResponsesType {
-  any?: number;
-}
-
-interface BarGraphProps extends JSX.HTMLAttributes<HTMLDListElement> {
-  responses: ResponsesType
+export interface BarGraphProps extends JSX.HTMLAttributes<HTMLDListElement> {
+  responses: Poll['responses'];
 }
 
 export function BarGraph(props: BarGraphProps) {

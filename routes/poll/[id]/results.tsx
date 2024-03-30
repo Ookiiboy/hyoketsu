@@ -1,14 +1,14 @@
 import { PageProps } from "$fresh/server.ts";
 import { Poll } from '../../../lib/poll.ts';
 import { db } from '../../../lib/db/db.ts';
-import { BarGraph } from "../../../components/BarGraph.tsx";
+import { AutoRefreshingBarGraph } from "../../../islands/AutoRefreshingBarGraph.tsx";
 import { Button } from "../../../components/Button.tsx";
 
 export default function Results(props: PageProps<Poll>) {
   return (
     <>
       <h1 className={`h2`}>{props.data.prompt}</h1>
-      <BarGraph responses={props.data.responses}/>
+      <AutoRefreshingBarGraph pollId={props.data.id} responses={props.data.responses}/>
       <br/>
       <Button onClick="window.location.reload()">Reload</Button>
     </>
