@@ -33,7 +33,7 @@ export const handler: Handlers = {
     const poll = db.getPoll(id);
 
     if (!poll) {
-      return new Response(404);
+      return ctx.renderNotFound();
     }
 
     return await ctx.render(poll);
@@ -43,7 +43,7 @@ export const handler: Handlers = {
     const poll = db.getPoll(id);
 
     if (!poll) {
-      return new Response(404);
+      return ctx.renderNotFound();
     }
 
     const form = await req.formData();

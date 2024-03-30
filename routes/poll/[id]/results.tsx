@@ -20,9 +20,7 @@ export const handler: Handlers = {
     const id = ctx.params.id;
     const poll = db.getPoll(id);
     if (!poll) {
-      return new Response("404");
-      // should we redirect?
-      // Where should we redirect to?
+      return ctx.renderNotFound();
     }
     return await ctx.render(poll);
   }
