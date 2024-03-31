@@ -10,7 +10,7 @@ export default function Results(props: PageProps<Poll>) {
       <h1 className={`h2`}>{props.data.prompt}</h1>
       <AutoRefreshingBarGraph pollId={props.data.id} responses={props.data.responses}/>
       <br/>
-      <Button onClick="window.location.reload()">Reload</Button>
+      <a className="c-button c-button--primary" href="results">Refresh</a>
     </>
   );
 }
