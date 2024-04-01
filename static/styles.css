@@ -230,6 +230,12 @@ html {
 body {
   background-color: var(--primary-bg-color);
   color: var(--primary-fg-color);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) .05em, transparent .1em),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) .05em, transparent .1em)
+  ;
+  background-size: 1em 1em;
+  background-position: 50% 50%;
 }
 /* Headings ********************************************************************/
 body, .article {
@@ -430,7 +436,6 @@ sub {
 .c-bottom-bar {
   padding-top: var(--default-spacing);
   padding-bottom: var(--default-spacing);
-  background-color: var(--primary-bg-color);
 }
 /* QR Code ********************************************************************/
 .c-qr-code {

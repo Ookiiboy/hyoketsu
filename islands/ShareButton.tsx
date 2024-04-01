@@ -1,4 +1,3 @@
-import type { Signal } from "@preact/signals";
 import { Button, ButtonProps } from "../components/Button.tsx";
 
 type ShareButtonProps = ButtonProps & {

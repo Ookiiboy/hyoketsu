@@ -46,10 +46,7 @@ export const handler: Handlers = {
     };
 
     const poll = db.createPoll(unsaved);
-
-    console.log(poll);
-
-    // Redirect user to thank you page.
+    
     const headers = new Headers();
     headers.set("location", `${poll.id}/share`);
     return new Response(null, {
