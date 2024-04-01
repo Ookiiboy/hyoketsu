@@ -462,3 +462,7 @@ sub {
   margin-left: 0;
   margin-top: calc(var(--default-spacing) / 2);
 }
+/* Form Error *****************************************************************/
+.c-form-error {
+
+}
