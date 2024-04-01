@@ -1,4 +1,3 @@
-import { osType } from "$std/path/_os.ts";
 import { RouteContext, Handlers, PageProps } from "$fresh/server.ts";
 import { UnsavedPoll, MultipleChoiceResponses } from '../../lib/poll.ts';
 import { db } from '../../lib/db/db.ts';
