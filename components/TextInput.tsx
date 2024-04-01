@@ -7,6 +7,7 @@ export type TextInputProps = JSX.HTMLAttributes<HTMLInputElement> & {
 
 export function TextInput(props: TextInputProps) {
   const errorId = props.error ? props.id + '-error' : undefined;
+  const value = props.value || undefined;
 
   return (
     <div className={`c-text-input`}>
@@ -17,7 +18,7 @@ export function TextInput(props: TextInputProps) {
         type="text"
         name={props.name}
         id={props.id}
-        value={props.value}
+        value={value}
         aria-describedby={errorId}
       />
       {props.error && <FormError id={errorId || ''}>{props.error}</FormError>}

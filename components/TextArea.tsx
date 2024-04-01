@@ -7,6 +7,7 @@ export type TextAreaProps = JSX.HTMLAttributes<HTMLTextAreaElement> & {
 
 export function TextArea(props: TextAreaProps) {
   const errorId = props.error ? props.id + '-error' : undefined;
+  const value = props.value || undefined;
 
   return (
     <div className={`c-text-area`}>
@@ -16,7 +17,7 @@ export function TextArea(props: TextAreaProps) {
         name={props.name}
         id={props.id}
         placeholder={props.placeholder}
-        value={props.value}
+        value={value}
         aria-describedby={errorId}
       />
       {props.error && <FormError id={errorId || ''}>{props.error}</FormError>}
