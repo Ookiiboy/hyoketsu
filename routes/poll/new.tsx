@@ -63,10 +63,7 @@ export const handler: Handlers = {
 export default function New(props: PageProps<ParseResult | undefined>) {
   const formState: ParseResult = props.data ?? {
     errors: {},
-    values: {
-      prompt: '',
-      options: []
-    }
+    values: defaultValues()
   };
 
   return (
@@ -97,6 +94,13 @@ export default function New(props: PageProps<ParseResult | undefined>) {
       </form>
     </>
   );
+}
+
+function defaultValues(): FormValues {
+  return {
+    prompt: '',
+    options: []
+  };
 }
 
 function parseFormSubmission(formData: FormData): ParseResult {
