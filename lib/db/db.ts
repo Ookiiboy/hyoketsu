@@ -26,9 +26,6 @@ function create(adapter: Adapter) {
     savePoll(poll: Poll) {
       adapter.set(poll.id, JSON.stringify(poll));
     },
-    deletePoll(id: string) {
-      adapter.delete(id);
-    },
     deleteWhere(pred: DeletePredicate) {
       return adapter.deleteWhere(pred);
     }
