@@ -28,14 +28,21 @@ export function BarGraph(props: BarGraphProps) {
       <dl class={`c-bar-graph`}>
         {props.responses && responsesEntries
         .map((response, i) => {
-            const value = (response[1] / totalityOfAllValues) * 100;
-            const renderedValue = value ? value : 0;
-            return <Bar value={renderedValue} key={i}>
-              {`${renderedValue.toString().substring(0, 4)}% - ${response[0]}`}
+          const [option, votes] = response;
+
+            const percent = (votes / totalityOfAllValues) * 100;
+            const renderedValue = percent ? percent : 0;
+            return <Bar value={renderedValue} key={option}>
+              {`${formatPercent(percent)}% - ${option}`}
             </Bar>
           })}
       </dl>
       <h2 className={`h5`}>Total Votes: {totalityOfAllValues}</h2>
     </>
   );
+}
+
+function formatPercent(value: number): string {
+  const str = value.toFixed(1);
+  return str.endsWith('.0') ? str.slice(0, -'.0'.length) : str;
 }
