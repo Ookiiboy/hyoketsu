@@ -21,23 +21,21 @@ export interface BarGraphProps extends JSX.HTMLAttributes<HTMLDListElement> {
 
 export function BarGraph(props: BarGraphProps) {
   const responsesEntries = Object.entries(props.responses);
-  const totalityOfAllValues = responsesEntries.reduce((p, c) => p + c[1], 0);
+  const totalVotes = responsesEntries.reduce((p, c) => p + c[1], 0);
 
   return (
     <>
       <dl class={`c-bar-graph`}>
-        {props.responses && responsesEntries
-        .map((response, i) => {
-          const [option, votes] = response;
-
-            const percent = (votes / totalityOfAllValues) * 100;
-            const renderedValue = percent ? percent : 0;
-            return <Bar value={renderedValue} key={option}>
+        {responsesEntries
+          .sort((a, b) => b[1] - a[1]) // descending order by vote count
+          .map(([option, votes]) => {
+            const percent = (votes / totalVotes) * 100;
+            return <Bar value={percent} key={option}>
               {`${formatPercent(percent)}% - ${option}`}
             </Bar>
           })}
       </dl>
-      <h2 className={`h5`}>Total Votes: {totalityOfAllValues}</h2>
+      <h2 className={`h5`}>Total Votes: {totalVotes}</h2>
     </>
   );
 }
