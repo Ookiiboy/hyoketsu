@@ -1,13 +1,15 @@
 import { db } from '../db/db.ts';
 import { isValid, createdDateFromId } from '../poll-id.ts';
+import { minutesToLive } from './time-to-live.ts';
 
-const MAX_POLL_AGE = 20 * 60 * 1000; // 20 minutes
+/** How long a poll lasts, in millis */
+const MAX_POLL_AGE_MS = minutesToLive * 60 * 1000;
 
 export function isExpiredPollId(key: string): boolean {
   if (isValid(key)) {
     const createdDate = createdDateFromId(key);
     const age = Date.now() - createdDate;
-    return age > MAX_POLL_AGE;
+    return age > MAX_POLL_AGE_MS;
   }
   return false;
 }
