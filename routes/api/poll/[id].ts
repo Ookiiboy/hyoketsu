@@ -1,12 +1,14 @@
 import { FreshContext } from "$fresh/server.ts";
 import { db } from '../../../lib/db/db.ts';
 
-export const handler = (_req: Request, ctx: FreshContext): Response => {
+export const handler = async (_req: Request, ctx: FreshContext) => {
   const id = ctx.params.id;
-  const poll = db.getPoll(id);
+  const poll = await db.getPoll(id);
 
   if (!poll) {
-    return new Response("404");
+    return new Response(null, {
+      status: 404
+    });
   }
 
   return new Response(JSON.stringify(poll));

@@ -45,7 +45,7 @@ export const handler: Handlers = {
       }, {} as MultipleChoiceResponses)
     };
 
-    const poll = db.createPoll(unsaved);
+    const poll = await db.createPoll(unsaved);
     
     const headers = new Headers();
     headers.set("location", `${poll.id}/share`);

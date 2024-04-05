@@ -1,13 +1,13 @@
 import { Adapter } from './adapter.ts';
 
 export const adapter: Adapter = {
-  get(key) {
+  async get(key) {
     return sessionStorage.getItem(key);
   },
-  set(key, value) {
-    sessionStorage.setItem(key, value);
+  async set(key, value) {
+    return sessionStorage.setItem(key, value);
   },
-  deleteWhere(pred) {
+  async deleteWhere(pred) {
     let count = 0;
 
     for (let i = 0; i < sessionStorage.length; i++) {

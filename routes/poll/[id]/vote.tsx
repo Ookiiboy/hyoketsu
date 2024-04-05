@@ -30,7 +30,7 @@ export default function Vote(props: PageProps<Poll>) {
 export const handler: Handlers = {
   async GET(req, ctx) {
     const id = ctx.params.id;
-    const poll = db.getPoll(id);
+    const poll = await db.getPoll(id);
 
     if (!poll) {
       return ctx.renderNotFound();
@@ -40,7 +40,7 @@ export const handler: Handlers = {
   },
   async POST(req, ctx) {
     const id = ctx.params.id;
-    const poll = db.getPoll(id);
+    const poll = await db.getPoll(id);
 
     if (!poll) {
       return ctx.renderNotFound();
@@ -53,7 +53,7 @@ export const handler: Handlers = {
       }
     });
 
-    db.savePoll(poll);
+    await db.savePoll(poll);
 
     // Redirect user to results page
     const headers = new Headers();

@@ -12,8 +12,8 @@ export function isExpiredPollId(key: string): boolean {
   return false;
 }
 
-export function deleteExpiredPolls() {
+export async function deleteExpiredPolls() {
   console.log(`Checking expired polls...`);
-  const count = db.deleteWhere(isExpiredPollId);
+  const count = await db.deleteWhere(isExpiredPollId);
   console.log(`Deleted ${count} expired polls`);
 }

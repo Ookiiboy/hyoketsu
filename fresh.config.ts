@@ -5,8 +5,6 @@ Deno.cron('Delete expired polls', {
   minute: {
     every: 1
   }
-}, () => {
-  deleteExpiredPolls();
-});
+}, () => deleteExpiredPolls());
 
 export default defineConfig({});

@@ -18,7 +18,7 @@ export default function Results(props: PageProps<Poll>) {
 export const handler: Handlers = {
   async GET(req, ctx) {
     const id = ctx.params.id;
-    const poll = db.getPoll(id);
+    const poll = await db.getPoll(id);
     if (!poll) {
       return ctx.renderNotFound();
     }

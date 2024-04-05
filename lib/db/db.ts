@@ -5,7 +5,7 @@ import { nextId, createdDateFromId } from '../poll-id.ts';
 
 function create(adapter: Adapter) {
   return {
-    createPoll(unsaved: UnsavedPoll) {
+    async createPoll(unsaved: UnsavedPoll) {
       const id = nextId();
       const createdDate = createdDateFromId(id);
 
@@ -15,18 +15,18 @@ function create(adapter: Adapter) {
         createdDate,
       };
 
-      adapter.set(id, JSON.stringify(poll));
+      await adapter.set(id, JSON.stringify(poll));
 
       return poll;
     },
-    getPoll(id: string) {
-      const rawPoll = adapter.get(id);
+    async getPoll(id: string) {
+      const rawPoll = await adapter.get(id);
       return rawPoll ? JSON.parse(rawPoll) : null;
     },
-    savePoll(poll: Poll) {
-      adapter.set(poll.id, JSON.stringify(poll));
+    async savePoll(poll: Poll) {
+      return adapter.set(poll.id, JSON.stringify(poll));
     },
-    deleteWhere(pred: DeletePredicate) {
+    async deleteWhere(pred: DeletePredicate) {
       return adapter.deleteWhere(pred);
     }
   };
