@@ -1,6 +1,6 @@
 import { JSX } from "preact";
 import { useMemo } from "preact/hooks";
-import { QRCodeSVG } from 'npm:@akamfoad/qrcode';
+import { QRCodeSVG } from '@akamfoad/qrcode';
 
 type QrCodeProps = {
   children: string
