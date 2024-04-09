@@ -9,8 +9,10 @@ export type FormErrorProps = {
 
 export function FormError(props: FormErrorProps) {
   return (
+    <>
     <span id={props.id} className="c-form-error">
       {props.children}
     </span>
+    </>
   );
 }

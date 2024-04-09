@@ -469,5 +469,6 @@ sub {
 }
 /* Form Error *****************************************************************/
 .c-form-error {
-
+  font-weight: bold;
+  color: red;
 }
