@@ -39,10 +39,6 @@ export const handler: Handlers = {
       type: 'multiple',
       prompt,
       options,
-      responses: options.reduce((responses, option) => {
-        responses[option] = 0;
-        return responses;
-      }, {} as MultipleChoiceResponses)
     };
 
     const poll = await db.createPoll(unsaved);

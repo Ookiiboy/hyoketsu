@@ -9,6 +9,8 @@ type Common = {
   createdDate: number;
   /** The question */
   prompt: string;
+  /** Milliseconds since Jan 1, 1970 UTC */
+  expirationDate: number;
 };
 
 export type MultipleChoiceResponses = {
@@ -22,4 +24,4 @@ export type MultipleChoicePoll = Common & {
 };
 
 export type Poll = MultipleChoicePoll;
-export type UnsavedPoll = Omit<Poll, 'id' | 'createdDate'>;
+export type UnsavedPoll = Omit<Poll, 'id' | 'createdDate' | 'expirationDate' | 'responses'>;
