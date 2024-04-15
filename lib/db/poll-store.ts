@@ -1,18 +1,26 @@
-import { Poll, UnsavedPoll, MultipleChoiceResponses } from '../poll.ts';
-import { PollId } from '../poll-id.ts';
-import { minutesToLive } from "../expiration/time-to-live.ts";
-
-type PollMeta = Omit<Poll, 'responses'>;
+import { Poll, PollMeta, UnsavedPoll, MultipleChoiceResponses } from '../poll.ts';
+import { minutesToLive } from "../expiration.ts";
+import { NotFoundError } from "../errors.ts";
 
 export const store = await initialize();
 
 async function initialize() {
   const kv = await Deno.openKv();
 
+  async function getMeta(id: Poll['id']): Promise<PollMeta> {
+    const { value  } = await kv.get<PollMeta>(pollKey(id));
+
+    if (!value) {
+      throw new NotFoundError('poll not found');
+    }
+
+    return value;
+  }
+
   return {
     async create(unsaved: UnsavedPoll): Promise<Poll> {
       const now = Date.now();
-      const id: PollId = `${now}`;
+      const id = `${now}`;
       const expirationDate = now + (minutesToLive * 60 * 1000);
 
       const pollMeta: PollMeta = {
@@ -22,81 +30,78 @@ async function initialize() {
         expirationDate,
       };
 
-      // save poll meta
-      const key = pollKey(id);
-      await kv.set(key, pollMeta, {expireIn: expirationDate});
+      const tx = kv.atomic();
 
-      // save responses
+      // Save poll meta
+      tx.set(pollKey(id), pollMeta, {expireIn: expirationDate});
+
+      // Save vote count for each option
       for (const option of pollMeta.options) {
-        await kv.set(responseKey(id, option), 0n, {expireIn: expirationDate});
+         tx.set(responseKey(id, option), new Deno.KvU64(0n), {expireIn: expirationDate});
       }
 
-      // Populate poll responses so calling code can use it immediately
-      const poll: Poll = {
+      // Commit all operations to db
+      await tx.commit();
+
+      // Give calling code something to look at
+      return {
         ...pollMeta,
         responses: defaultResponses(unsaved.options),
-      }
-
-      return poll;
+      };
     },
-    async get(id: PollId): Promise<Poll> {
-      const { value: pollMeta  } = await kv.get<PollMeta>(pollKey(id));
-
-      if (!pollMeta) {
-        throw new Error('poll not found');
-      }
+    /**
+     * Get a poll, minus the vote counts.
+     */
+    getPollMeta: getMeta,
+    /**
+     * Get a poll, fully populated.
+     */
+    async getPoll(id: Poll['id']): Promise<Poll> {
+      const pollMeta = await getMeta(id);
 
       // Load vote counts
       const options = pollMeta.options;
       const optionKeys = options.map(option => responseKey(id, option));
-      const results = await kv.getMany<Array<Deno.KvU64>>(optionKeys);
       const responses = defaultResponses(options);
+      const results = await kv.getMany<Array<Deno.KvU64>>(optionKeys);
 
-      for (let i = 0; options.length; i++) {
-        const result = results[i];
-
-        responses[options[i]] = result.value == null
+      results.forEach((result, index) => {
+        responses[options[index]] = result.value == null
           ? 0
-          // Coerce bigint to number, could lose precision
+          // Risky: Coerce bigint to number which could lose precision
           : Number(result.value);
-      }
+      });
 
-      // Combine vote counts with meta to form fully populated poll object
+      // Make a fully populated poll object
       return {
         ...pollMeta,
         responses
       };
     },
-    async vote(id: PollId, option: string) {
-      const { value: pollMeta  } = await kv.get<PollMeta>(pollKey(id));
-
-      if (!pollMeta) {
-        throw new Error('poll not found');
+    async vote(poll: PollMeta, option: string) {
+      if (!poll.options.includes(option)) {
+        throw new NotFoundError('option not found');
       }
 
-      if (!(option in pollMeta.options)) {
-        throw new Error('option not found');
-      }
-
-      const key = responseKey(id, option);
+      const key = responseKey(poll.id, option);
       await kv.atomic().sum(key, 1n).commit();
     }
   };
 }
 
-type PollKey = ['poll', PollId];
+type PollKey = ['poll', Poll['id']];
 type ResponsesKey = [...PollKey, 'responses'];
 type ResponseKey = [...ResponsesKey, string];
 
-function pollKey(id: PollId): PollKey {
+function pollKey(id: Poll['id']): PollKey {
   return ['poll', id] as const;
 }
 
-function responsesKey(id: PollId): ResponsesKey {
+function responsesKey(id: Poll['id']): ResponsesKey {
   return [...pollKey(id), 'responses'] as const;
 }
 
-function responseKey(id: PollId, option: string): ResponseKey {
+function responseKey(id: Poll['id'], option: string): ResponseKey {
   return [...responsesKey(id), option] as const;
 }
 

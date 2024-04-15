@@ -1,12 +1,13 @@
-import { PageProps } from "$fresh/server.ts";
-import { Poll } from '../../../lib/poll.ts';
-import { db } from '../../../lib/db/db.ts';
+import { PageProps, Handlers } from "$fresh/server.ts";
+import { PollMeta } from '../../../lib/poll.ts';
+import { store } from '../../../lib/db/poll-store.ts';
 import { RadioButton } from "../../../components/RadioButton.tsx";
 import { RadioFieldset } from "../../../components/RadioFieldset.tsx";
 import { Button } from "../../../components/Button.tsx";
 import { BottomBar } from "../../../components/BottomBar.tsx";
+import { NotFoundError } from "../../../lib/errors.ts";
 
-export default function Vote(props: PageProps<Poll>) {
+export default function Vote(props: PageProps<PollMeta>) {
   return (
     <div>
       <form method="post">
@@ -30,37 +31,51 @@ export default function Vote(props: PageProps<Poll>) {
 export const handler: Handlers = {
   async GET(req, ctx) {
     const id = ctx.params.id;
-    const poll = await db.getPoll(id);
 
-    if (!poll) {
-      return ctx.renderNotFound();
+    try {
+      const poll = await store.getPollMeta(id);
+      return await ctx.render(poll);
+    } catch (e) {
+      if (e instanceof NotFoundError) {
+        return ctx.renderNotFound();
+      } else {
+        console.error(e);
+        return new Response(null, {
+          status: 500
+        });
+      }
     }
-
-    return await ctx.render(poll);
   },
   async POST(req, ctx) {
     const id = ctx.params.id;
-    const poll = await db.getPoll(id);
 
-    if (!poll) {
-      return ctx.renderNotFound();
-    }
+    try {
+      const poll = await store.getPollMeta(id);
+      const form = await req.formData();
 
-    const form = await req.formData();
-    form.getAll('selections').forEach(selection => {
-      if (selection in poll.responses) {
-        poll.responses[selection] += 1;
+      for (const selection of form.getAll('selections')) {
+        if (typeof selection === 'string') {
+          await store.vote(poll, selection);
+        }
       }
-    });
 
-    await db.savePoll(poll);
+      // Redirect user to results page
+      const headers = new Headers();
+      headers.set("location", `results`);
+      return new Response(null, {
+        status: 303,
+        headers,
+      });
+    } catch (e) {
+      console.error(e);
 
-    // Redirect user to results page
-    const headers = new Headers();
-    headers.set("location", `results`);
-    return new Response(null, {
-      status: 303,
-      headers,
-    });
+      if (e instanceof NotFoundError) {
+        return ctx.renderNotFound();
+      } else {
+        return new Response(null, {
+          status: 500
+        });
+      }
+    }
   },
 };

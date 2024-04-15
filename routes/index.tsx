@@ -1,4 +1,4 @@
-import { minutesToLive } from "../lib/expiration/time-to-live.ts";
+import { minutesToLive } from "../lib/expiration.ts";
 
 const Check = () => <span style={{color: "var(--primary-accent-color)"}}>✔</span>
 

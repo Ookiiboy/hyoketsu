@@ -1,9 +1,7 @@
-import { PollId } from './poll-id.ts';
-
 type PollType = 'multiple';
 
 type Common = {
-  id: PollId;
+  id: string;
   type: PollType;
   /** Milliseconds since Jan 1, 1970 UTC */
   createdDate: number;
@@ -24,4 +22,11 @@ export type MultipleChoicePoll = Common & {
 };
 
 export type Poll = MultipleChoicePoll;
+/**
+ * Poll that hasn't been saved yet
+ */
 export type UnsavedPoll = Omit<Poll, 'id' | 'createdDate' | 'expirationDate' | 'responses'>;
+/**
+ * Everything except the vote counts.
+ */
+export type PollMeta = Omit<Poll, 'responses'>;

@@ -1,6 +1,6 @@
 import { RouteContext, Handlers, PageProps } from "$fresh/server.ts";
 import { UnsavedPoll, MultipleChoiceResponses } from '../../lib/poll.ts';
-import { db } from '../../lib/db/db.ts';
+import { store } from '../../lib/db/poll-store.ts';
 import { BottomBar } from "../../components/BottomBar.tsx";
 import { Button } from "../../components/Button.tsx";
 import { TextInput } from "../../components/TextInput.tsx";
@@ -41,7 +41,7 @@ export const handler: Handlers = {
       options,
     };
 
-    const poll = await db.createPoll(unsaved);
+    const poll = await store.create(unsaved);
     
     const headers = new Headers();
     headers.set("location", `${poll.id}/share`);

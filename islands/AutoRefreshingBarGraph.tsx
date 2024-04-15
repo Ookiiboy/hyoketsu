@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef, useCallback } from 'preact/hooks';
 import { BarGraph, BarGraphProps } from "../components/BarGraph.tsx";
-import { PollId } from '../lib/poll-id.ts';
 import { Poll } from '../lib/poll.ts';
 
 export type AutoRefreshingBarGraphProps = BarGraphProps & {
-  pollId: PollId;
+  pollId: Poll['id'];
 }
 
 export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
@@ -18,7 +17,7 @@ export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
 }
 
 type AutoRefreshSettings = {
-  pollId: PollId,
+  pollId: Poll['id'],
   initialResponses: AutoRefreshingBarGraphProps['responses'],
   interval: number,
 }
