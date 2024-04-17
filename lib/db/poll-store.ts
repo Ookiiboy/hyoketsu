@@ -1,6 +1,7 @@
 import { Poll, PollMeta, UnsavedPoll, MultipleChoiceResponses } from '../poll.ts';
 import { minutesToLive } from "../expiration.ts";
 import { NotFoundError } from "../errors.ts";
+import { ulid } from 'ulid';
 
 export const store = await initialize();
 
@@ -20,7 +21,7 @@ async function initialize() {
   return {
     async create(unsaved: UnsavedPoll): Promise<Poll> {
       const now = Date.now();
-      const id = `${now}`;
+      const id = ulid();
       const expirationDate = now + (minutesToLive * 60 * 1000);
 
       const pollMeta: PollMeta = {
