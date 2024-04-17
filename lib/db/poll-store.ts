@@ -62,15 +62,15 @@ async function initialize() {
       // Load vote counts
       const options = pollMeta.options;
       const optionKeys = options.map(option => responseKey(id, option));
-      const responses = defaultResponses(options);
       const results = await kv.getMany<Array<Deno.KvU64>>(optionKeys);
 
-      results.forEach((result, index) => {
-        responses[options[index]] = result.value == null
+      const responses = results.reduce((voteCounts, current, index) => {
+        voteCounts[options[index]] = current.value == null
           ? 0
           // Risky: Coerce bigint to number which could lose precision
-          : Number(result.value);
-      });
+          : Number(current.value);
+        return voteCounts;
+      }, defaultResponses(options));
 
       // Make a fully populated poll object
       return {
