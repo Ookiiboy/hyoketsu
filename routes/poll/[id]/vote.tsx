@@ -32,50 +32,27 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const id = ctx.params.id;
 
-    try {
-      const poll = await store.getPollMeta(id);
-      return await ctx.render(poll);
-    } catch (e) {
-      if (e instanceof NotFoundError) {
-        return ctx.renderNotFound();
-      } else {
-        console.error(e);
-        return new Response(null, {
-          status: 500
-        });
-      }
-    }
+    const poll = await store.getPollMeta(id);
+    return await ctx.render(poll);
   },
   async POST(req, ctx) {
     const id = ctx.params.id;
 
-    try {
-      const poll = await store.getPollMeta(id);
-      const form = await req.formData();
+    const poll = await store.getPollMeta(id);
+    const form = await req.formData();
 
-      for (const selection of form.getAll('selections')) {
-        if (typeof selection === 'string') {
-          await store.vote(poll, selection);
-        }
-      }
-
-      // Redirect user to results page
-      const headers = new Headers();
-      headers.set("location", `results`);
-      return new Response(null, {
-        status: 303,
-        headers,
-      });
-    } catch (e) {
-      console.error(e);
-
-      if (e instanceof NotFoundError) {
-        return ctx.renderNotFound();
-      } else {
-        return new Response(null, {
-          status: 500
-        });
+    for (const selection of form.getAll('selections')) {
+      if (typeof selection === 'string') {
+        await store.vote(poll, selection);
       }
     }
+
+    // Redirect user to results page
+    const headers = new Headers();
+    headers.set("location", `results`);
+    return new Response(null, {
+      status: 303,
+      headers,
+    });
   },
 };

@@ -2,7 +2,6 @@ import { PageProps, Handlers } from "$fresh/server.ts";
 import { Poll } from '../../../lib/poll.ts';
 import { store } from '../../../lib/db/poll-store.ts';
 import { AutoRefreshingBarGraph } from "../../../islands/AutoRefreshingBarGraph.tsx";
-import { NotFoundError } from "../../../lib/errors.ts";
 
 export default function Results(props: PageProps<Poll>) {
   return (
@@ -19,17 +18,7 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const id = ctx.params.id;
 
-    try {
-      const poll = await store.getPoll(id);
-      return await ctx.render(poll);
-    } catch(e) {
-      if (e instanceof NotFoundError) {
-        return ctx.renderNotFound();
-      } else {
-        return new Response(null, {
-          status: 500
-        });
-      }
-    }
+    const poll = await store.getPoll(id);
+    return await ctx.render(poll);
   }
 };
