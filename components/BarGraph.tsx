@@ -28,9 +28,10 @@ export function BarGraph(props: BarGraphProps) {
       <dl class={`c-bar-graph`}>
         {responsesEntries
           .sort((a, b) => b[1] - a[1]) // descending order by vote count
-          .map(([option, votes]) => {
+          .map(([option, votes], _index, arr) => {
+            const maxVotes = Math.max(...arr.map(pair => pair[1]));
             const percent = (votes / totalVotes) * 100;
-            return <Bar value={percent} key={option}>
+            return <Bar value={votes / maxVotes * 100} key={option}>
               {`${formatPercent(percent)}% - ${option}`}
             </Bar>
           })}
