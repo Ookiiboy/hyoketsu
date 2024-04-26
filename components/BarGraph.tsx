@@ -22,18 +22,18 @@ export interface BarGraphProps extends JSX.HTMLAttributes<HTMLDListElement> {
 export function BarGraph(props: BarGraphProps) {
   const responsesEntries = Object.entries(props.responses);
   const totalVotes = responsesEntries.reduce((p, c) => p + c[1], 0);
+  const maxVotes = Math.max(...responsesEntries.map(([_option, count]) => count));
 
   return (
     <>
       <dl class={`c-bar-graph`}>
         {responsesEntries
           .sort((a, b) => b[1] - a[1]) // descending order by vote count
-          .map(([option, votes], _index, arr) => {
-            // The number to show
+          .map(([option, votes]) => {
+            // Human-facing percent of votes for this option
             const percent = (votes / totalVotes) * 100;
 
             // Bar width, scaled relative to option with max votes
-            const maxVotes = Math.max(...arr.map(([_option, count]) => count));
             const barWidthPercent = votes / maxVotes * 100;
 
             return <Bar value={barWidthPercent} key={option}>
