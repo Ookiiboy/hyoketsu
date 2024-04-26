@@ -31,14 +31,16 @@ export function BarGraph(props: BarGraphProps) {
           .sort((a, b) => b[1] - a[1]) // descending order by vote count
           .map(([option, votes]) => {
             // Human-facing percent of votes for this option
-            const percent = (votes / totalVotes) * 100;
+            const percent = formatPercent((votes / totalVotes) * 100);
 
             // Bar width, scaled relative to option with max votes
             const barWidthPercent = votes / maxVotes * 100;
 
-            return <Bar value={barWidthPercent} key={option}>
-              {`${formatPercent(percent)}% - ${option}`}
-            </Bar>
+            return (
+              <Bar value={barWidthPercent} key={option}>
+                {`${percent}% - ${option}`}
+              </Bar>
+            );
           })}
       </dl>
       <h2 className={`h5`}>Total Votes: {totalVotes}</h2>
