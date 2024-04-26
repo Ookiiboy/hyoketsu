@@ -29,9 +29,14 @@ export function BarGraph(props: BarGraphProps) {
         {responsesEntries
           .sort((a, b) => b[1] - a[1]) // descending order by vote count
           .map(([option, votes], _index, arr) => {
-            const maxVotes = Math.max(...arr.map(pair => pair[1]));
+            // The number to show
             const percent = (votes / totalVotes) * 100;
-            return <Bar value={votes / maxVotes * 100} key={option}>
+
+            // Bar width, scaled relative to option with max votes
+            const maxVotes = Math.max(...arr.map(([_option, count]) => count));
+            const barWidthPercent = votes / maxVotes * 100;
+
+            return <Bar value={barWidthPercent} key={option}>
               {`${formatPercent(percent)}% - ${option}`}
             </Bar>
           })}
