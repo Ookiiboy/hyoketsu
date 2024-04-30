@@ -36,8 +36,9 @@
     "jsxImportSource": "preact"
   },
   "deploy": {
-    "project": "fcf0c1a5-f133-4ebb-878b-77de1b58fc24",
+    "project": "11a1aba9-53a3-43f3-bdfe-c83a8f4b2481",
     "exclude": [
+      "**/node_modules",
       "**/node_modules"
     ],
     "include": [],
