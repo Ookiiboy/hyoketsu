@@ -22,3 +22,6 @@ update-fresh: ## Dev -- Update Fresh
 
 dev:
 	deno task start
+
+deploy:
+	deployctl deploy --org=ookiiboy --project=hyoketsu
