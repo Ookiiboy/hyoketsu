@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'preact/hooks';
 import { BarGraph, BarGraphProps } from "../components/BarGraph.tsx";
 import { Poll } from '../lib/poll.ts';
+import { loadPoll } from '../lib/api-client.ts';
 
 export type AutoRefreshingBarGraphProps = BarGraphProps & {
   pollId: Poll['id'];
@@ -10,7 +11,6 @@ export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
   const responses = useAutoRefresh({
     pollId: props.pollId,
     initialResponses: props.responses,
-    interval: 10 * 1000
   });
 
   return <BarGraph responses={responses} />
@@ -19,63 +19,38 @@ export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
 type AutoRefreshSettings = {
   pollId: Poll['id'],
   initialResponses: AutoRefreshingBarGraphProps['responses'],
-  interval: number,
 }
 
 function useAutoRefresh(settings: AutoRefreshSettings): AutoRefreshingBarGraphProps['responses'] {
-  const { pollId, initialResponses, interval } = settings;
+  const { pollId, initialResponses } = settings;
   const [responses, setResponses] = useState(initialResponses);
-  const [active, setActive] = useState(true);
   const isLoading = useRef(false);
 
-  useVisibilityChange(setActive);
-
-  const refreshData = useCallback(() => {
-    if (isLoading.current) return;
+  const refreshData = useCallback((shouldLoad = true) => {
+    if (!shouldLoad || isLoading.current) return;
 
     isLoading.current = true;
-    fetch(`/api/poll/${pollId}`)
-      .then(resp => resp.json())
-      .then(json => {
-        const poll = json as Poll;
-        setResponses(poll.responses);
-      })
+    loadPoll(pollId)
+      .then(poll => setResponses(poll.responses))
       .catch(error => console.error(error))
       .finally(() => isLoading.current = false);
     },
     [pollId, setResponses, isLoading]
   );
 
-  useInterval({
-    cb: refreshData,
-    interval,
-    active,
-    runOnceBeforeInterval: true,
-  });
+  useWindowFocus(refreshData);
+  useVisibilityChange(refreshData);
 
   return responses;
 }
 
-type IntervalSettings = {
-  cb: () => any,
-  interval: number,
-  active: boolean,
-  runOnceBeforeInterval: boolean
-};
-
-function useInterval(settings: IntervalSettings) {
-  const { cb, interval, active, runOnceBeforeInterval } = settings;
-
+function useWindowFocus(cb: () => void) {
   useEffect(() => {
-    if (active) {
-      if (runOnceBeforeInterval) {
-        cb();
-      }
+    const listener = () => cb();
 
-      const intervalId = setInterval(cb, interval);
-      return () => clearInterval(intervalId);
-    }
-  }, [cb, interval, active, runOnceBeforeInterval]);
+    globalThis.addEventListener('focus', listener);
+    return () => globalThis.removeEventListener('focus', listener);
+  }, [cb]);
 }
 
 function useVisibilityChange(cb: (visible: boolean) => void) {
