@@ -26,8 +26,8 @@ function useAutoRefresh(settings: AutoRefreshSettings): AutoRefreshingBarGraphPr
   const [responses, setResponses] = useState(initialResponses);
   const isLoading = useRef(false);
 
-  const refreshData = useCallback((visible: boolean) => {
-    if (!visible || isLoading.current) return;
+  const refreshData = useCallback((shouldLoad = true) => {
+    if (!shouldLoad || isLoading.current) return;
 
     isLoading.current = true;
     loadPoll(pollId)
@@ -38,9 +38,19 @@ function useAutoRefresh(settings: AutoRefreshSettings): AutoRefreshingBarGraphPr
     [pollId, setResponses, isLoading]
   );
 
+  useWindowFocus(refreshData);
   useVisibilityChange(refreshData);
 
   return responses;
+}
+
+function useWindowFocus(cb: () => void) {
+  useEffect(() => {
+    const listener = () => cb();
+
+    globalThis.addEventListener('focus', listener);
+    return () => globalThis.removeEventListener('focus', listener);
+  }, [cb]);
 }
 
 function useVisibilityChange(cb: (visible: boolean) => void) {
