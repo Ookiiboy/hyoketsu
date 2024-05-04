@@ -28,6 +28,7 @@
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "$std/": "https://deno.land/std@0.211.0/",
+    "log": "https://deno.land/std@0.211.0/log/mod.ts",
     "ulid": "https://deno.land/std@0.211.0/ulid/mod.ts",
     "@akamfoad/qrcode": "npm:@akamfoad/qrcode@0.3.2"
   },
