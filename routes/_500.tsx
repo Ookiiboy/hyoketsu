@@ -8,7 +8,7 @@ export default function Error500Page(props: PageProps) {
   return (
     <>
       <Head>
-        <title>500 - Page not found</title>
+        <title>500 - Server Error</title>
       </Head>
       <a href="/" style={{textDecoration: "none", color: "inherit"}}>
         <Logo/>
