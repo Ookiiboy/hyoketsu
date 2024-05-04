@@ -42,13 +42,17 @@ async function initialize() {
       }
 
       // Commit all operations to db
-      await tx.commit();
+      const result = await tx.commit();
 
-      // Give calling code something to look at
-      return {
-        ...pollMeta,
-        responses: defaultResponses(unsaved.options),
-      };
+      if (result.ok) {
+        // Give calling code something to look at
+        return {
+          ...pollMeta,
+          responses: defaultResponses(unsaved.options),
+        };
+      } else {
+        throw new Error(`Failed to create poll "${pollMeta.prompt}"`);
+      }
     },
     /**
      * Get a poll, minus the vote counts.
@@ -85,7 +89,11 @@ async function initialize() {
       }
 
       const key = responseKey(poll.id, option);
-      await kv.atomic().sum(key, 1n).commit();
+      const result = await kv.atomic().sum(key, 1n).commit();
+
+      if (!result.ok) {
+        throw new Error(`Failed to vote for "${option}" on poll ${poll.id}`);
+      }
     }
   };
 }
