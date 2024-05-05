@@ -11,7 +11,7 @@ export default function Share(props: PageProps) {
     <>
       <h1 className={`h2`}>Share</h1>
       <QrCode>{url.toString()}</QrCode>
-      <ShareButton url={url}>Copy Voting Link</ShareButton>
+      <ShareButton url={url.toString()}>Copy Voting Link</ShareButton>
       <BottomBar>
         <a className="c-button c-button--primary" href={url.toString()}>Vote Here</a>
       </BottomBar>

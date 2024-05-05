@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from "../components/Button.tsx";
 
 type ShareButtonProps = ButtonProps & {
-  url: URL;
+  url: string;
 }
 
 export function ShareButton(props: ShareButtonProps) {
@@ -12,7 +12,7 @@ export function ShareButton(props: ShareButtonProps) {
   } = props;
 
   const copyUrl = () => {
-    navigator.clipboard.writeText(url.toString())
+    navigator.clipboard.writeText(url)
       .then(() => alert('Copied!'));
   };
 
