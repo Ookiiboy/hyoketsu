@@ -14,7 +14,6 @@ import * as $poll_id_share from "./routes/poll/[id]/share.tsx";
 import * as $poll_id_vote from "./routes/poll/[id]/vote.tsx";
 import * as $poll_new from "./routes/poll/new.tsx";
 import * as $AutoRefreshingBarGraph from "./islands/AutoRefreshingBarGraph.tsx";
-import * as $Counter from "./islands/Counter.tsx";
 import * as $ShareButton from "./islands/ShareButton.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -34,7 +33,6 @@ const manifest = {
   },
   islands: {
     "./islands/AutoRefreshingBarGraph.tsx": $AutoRefreshingBarGraph,
-    "./islands/Counter.tsx": $Counter,
     "./islands/ShareButton.tsx": $ShareButton,
   },
   baseUrl: import.meta.url,
