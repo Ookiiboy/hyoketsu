@@ -2,10 +2,22 @@ import { Poll, PollMeta, UnsavedPoll, MultipleChoiceResponses } from '../poll.ts
 import { minutesToLive } from "../expiration.ts";
 import { NotFoundError } from "../errors.ts";
 import { ulid } from 'ulid';
+import { perfWrapper } from './perf-wrapper.ts';
 
-export const store = await initialize();
+export type PollStore = Awaited<ReturnType<typeof createPollStore>>;
 
-async function initialize() {
+export const store = withTiming(await createPollStore());
+
+function withTiming(store: PollStore): PollStore {
+  return {
+    create: perfWrapper('pollStore.create', store.create),
+    getPollMeta: perfWrapper('pollStore.getPollMeta', store.getPollMeta),
+    getPoll: perfWrapper('pollStore.getPoll', store.getPoll),
+    vote: perfWrapper('pollStore.vote', store.vote),
+  };
+}
+
+async function createPollStore() {
   const kv = await Deno.openKv();
 
   async function getMeta(id: Poll['id']): Promise<PollMeta> {
