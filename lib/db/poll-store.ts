@@ -1,5 +1,5 @@
 import { Poll, PollMeta, UnsavedPoll, MultipleChoiceResponses } from '../poll.ts';
-import { minutesToLive } from "../expiration.ts";
+import { minutesToLive, isExpired } from "../expiration.ts";
 import { NotFoundError } from "../errors.ts";
 import { ulid } from 'ulid';
 import { perfWrapper } from './perf-wrapper.ts';
@@ -23,7 +23,7 @@ async function createPollStore() {
   async function getMeta(id: Poll['id']): Promise<PollMeta> {
     const { value  } = await kv.get<PollMeta>(pollKey(id));
 
-    if (!value) {
+    if (!value || isExpired(value)) {
       throw new NotFoundError('poll not found');
     }
 
