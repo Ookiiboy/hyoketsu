@@ -1,11 +1,13 @@
-import { PageProps } from "$fresh/server.ts";
+import { PageProps, Handlers } from "$fresh/server.ts";
+import { Poll } from '../../../lib/poll.ts';
+import { store } from '../../../lib/db/poll-store.ts';
 import { BottomBar } from "../../../components/BottomBar.tsx";
 import { QrCode } from "../../../components/QrCode.tsx";
 import { ShareButton } from "../../../islands/ShareButton.tsx";
 
-export default function Share(props: PageProps) {
+export default function Share(props: PageProps<Poll>) {
   const url = new URL(props.url);
-  url.pathname = `/poll/${props.params.id}/vote`
+  url.pathname = `/poll/${props.data.id}/vote`
 
   return (
     <>
@@ -18,3 +20,12 @@ export default function Share(props: PageProps) {
     </>
   );
 }
+
+export const handler: Handlers = {
+  async GET(_req, ctx) {
+    const id = ctx.params.id;
+
+    const poll = await store.getPoll(id);
+    return await ctx.render(poll);
+  }
+};
