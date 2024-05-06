@@ -24,4 +24,4 @@ dev:
 	deno task start
 
 deploy:
-	deployctl deploy --org=ookiiboy --project=hyoketsu
+	deployctl deploy --org=ookiiboy --project=hyoketsu --save-config
