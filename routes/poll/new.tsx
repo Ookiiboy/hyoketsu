@@ -1,25 +1,25 @@
-import { RouteContext, Handlers, PageProps } from "$fresh/server.ts";
-import { UnsavedPoll, MultipleChoiceResponses } from '../../lib/poll.ts';
-import { store } from '../../lib/db/poll-store.ts';
+import { Handlers, PageProps, RouteContext } from "$fresh/server.ts";
+import { MultipleChoiceResponses, UnsavedPoll } from "../../lib/poll.ts";
+import { store } from "../../lib/db/poll-store.ts";
 import { BottomBar } from "../../components/BottomBar.tsx";
 import { Button } from "../../components/Button.tsx";
 import { TextInput } from "../../components/TextInput.tsx";
 import { TextArea } from "../../components/TextArea.tsx";
 
 type FormErrors = {
-  prompt?: string,
-  options?: string,
+  prompt?: string;
+  options?: string;
 };
 
 type FormValues = {
-  prompt: string,
-  options: Array<string>,
+  prompt: string;
+  options: Array<string>;
 };
 
 type ParseResult = {
-  errors: FormErrors,
-  values: FormValues,
-}
+  errors: FormErrors;
+  values: FormValues;
+};
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -36,18 +36,18 @@ export const handler: Handlers = {
     const { prompt, options } = parseResult.values;
 
     const unsaved: UnsavedPoll = {
-      type: 'multiple',
+      type: "multiple",
       prompt,
       options,
     };
 
     const poll = await store.create(unsaved);
-    
+
     const headers = new Headers();
     headers.set("location", `${poll.id}/share`);
     return new Response(null, {
       status: 303,
-      headers
+      headers,
     });
   },
 };
@@ -55,7 +55,7 @@ export const handler: Handlers = {
 export default function New(props: PageProps<ParseResult | undefined>) {
   const formState: ParseResult = props.data ?? {
     errors: {},
-    values: defaultValues()
+    values: defaultValues(),
   };
 
   return (
@@ -75,7 +75,7 @@ export default function New(props: PageProps<ParseResult | undefined>) {
           name="options"
           id="pollOptions"
           placeholder="One choice per line..."
-          value={formState.values.options.join('\n')}
+          value={formState.values.options.join("\n")}
           error={formState.errors.options}
         >
           Poll Choices
@@ -90,38 +90,38 @@ export default function New(props: PageProps<ParseResult | undefined>) {
 
 function defaultValues(): FormValues {
   return {
-    prompt: '',
-    options: []
+    prompt: "",
+    options: [],
   };
 }
 
 function parseFormSubmission(formData: FormData): ParseResult {
   const errors: FormErrors = {};
 
-  const prompt = stringValue('prompt', formData).trim();
+  const prompt = stringValue("prompt", formData).trim();
   if (prompt.length === 0) {
-    errors.prompt = 'Question cannot be blank';
+    errors.prompt = "Question cannot be blank";
   }
 
-  const rawOptions = stringValue('options', formData);
+  const rawOptions = stringValue("options", formData);
   const options = unique(
     rawOptions
       .split(/\r?\n/)
-      .map(opt => opt.trim())
+      .map((opt) => opt.trim())
       // remove empties
-      .filter(opt => !!opt)
+      .filter((opt) => !!opt),
   );
 
   if (options.length === 0) {
-    errors.options = 'Must include at least 1 choice';
+    errors.options = "Must include at least 1 choice";
   }
 
   return {
     errors,
     values: {
       options,
-      prompt
-    }
+      prompt,
+    },
   };
 }
 
@@ -132,9 +132,9 @@ function stringValue(name: string, formData: FormData): string {
   const value = formData.get(name);
   // Unexpected file
   if (value instanceof Blob) {
-    return '';
+    return "";
   } else {
-    return value ?? '';
+    return value ?? "";
   }
 }
 

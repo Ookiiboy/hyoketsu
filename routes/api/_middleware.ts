@@ -1,6 +1,6 @@
-import { FreshContext } from '$fresh/server.ts';
+import { FreshContext } from "$fresh/server.ts";
 import { NotFoundError } from "../../lib/errors.ts";
-import { logger } from '../../lib/logger.ts';
+import { logger } from "../../lib/logger.ts";
 
 // Handle api errors
 export async function handler(_req: Request, ctx: FreshContext) {
@@ -11,11 +11,11 @@ export async function handler(_req: Request, ctx: FreshContext) {
 
     if (e instanceof NotFoundError) {
       return new Response(null, {
-        status: 404
+        status: 404,
       });
     } else {
       return new Response(null, {
-        status: 500
+        status: 500,
       });
     }
   }

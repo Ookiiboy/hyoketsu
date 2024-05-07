@@ -1,4 +1,4 @@
-type PollType = 'multiple';
+type PollType = "multiple";
 
 type Common = {
   id: string;
@@ -16,17 +16,20 @@ export type MultipleChoiceResponses = {
 };
 
 export type MultipleChoicePoll = Common & {
-  type: 'multiple',
-  options: Array<string>,
-  responses: MultipleChoiceResponses,
+  type: "multiple";
+  options: Array<string>;
+  responses: MultipleChoiceResponses;
 };
 
 export type Poll = MultipleChoicePoll;
 /**
  * Poll that hasn't been saved yet
  */
-export type UnsavedPoll = Omit<Poll, 'id' | 'createdDate' | 'expirationDate' | 'responses'>;
+export type UnsavedPoll = Omit<
+  Poll,
+  "id" | "createdDate" | "expirationDate" | "responses"
+>;
 /**
  * Everything except the vote counts.
  */
-export type PollMeta = Omit<Poll, 'responses'>;
+export type PollMeta = Omit<Poll, "responses">;

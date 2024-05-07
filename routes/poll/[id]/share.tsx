@@ -1,13 +1,13 @@
-import { PageProps, Handlers } from "$fresh/server.ts";
-import { Poll } from '../../../lib/poll.ts';
-import { store } from '../../../lib/db/poll-store.ts';
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { Poll } from "../../../lib/poll.ts";
+import { store } from "../../../lib/db/poll-store.ts";
 import { BottomBar } from "../../../components/BottomBar.tsx";
 import { QrCode } from "../../../components/QrCode.tsx";
 import { ShareButton } from "../../../islands/ShareButton.tsx";
 
 export default function Share(props: PageProps<Poll>) {
   const url = new URL(props.url);
-  url.pathname = `/poll/${props.data.id}/vote`
+  url.pathname = `/poll/${props.data.id}/vote`;
 
   return (
     <>
@@ -15,7 +15,9 @@ export default function Share(props: PageProps<Poll>) {
       <QrCode>{url.toString()}</QrCode>
       <ShareButton url={url.toString()}>Copy Voting Link</ShareButton>
       <BottomBar>
-        <a className="c-button c-button--primary" href={url.toString()}>Vote Here</a>
+        <a className="c-button c-button--primary" href={url.toString()}>
+          Vote Here
+        </a>
       </BottomBar>
     </>
   );
@@ -27,5 +29,5 @@ export const handler: Handlers = {
 
     const poll = await store.getPoll(id);
     return await ctx.render(poll);
-  }
+  },
 };

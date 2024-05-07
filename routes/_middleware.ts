@@ -1,6 +1,6 @@
-import { FreshContext, Handler } from '$fresh/server.ts';
+import { FreshContext, Handler } from "$fresh/server.ts";
 import { NotFoundError } from "../lib/errors.ts";
-import { logger } from '../lib/logger.ts';
+import { logger } from "../lib/logger.ts";
 
 export const handler: Array<Handler> = [
   // Handle errors
@@ -22,7 +22,7 @@ export const handler: Array<Handler> = [
     const before = performance.now();
     const result = await ctx.next();
 
-    if (ctx.destination === 'route') {
+    if (ctx.destination === "route") {
       const durationMillis = performance.now() - before;
       const url = new URL(req.url);
 

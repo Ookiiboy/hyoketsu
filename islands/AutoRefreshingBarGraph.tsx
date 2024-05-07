@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef, useCallback } from 'preact/hooks';
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import { BarGraph, BarGraphProps } from "../components/BarGraph.tsx";
-import { Poll } from '../lib/poll.ts';
-import { loadPoll } from '../lib/api-client.ts';
+import { Poll } from "../lib/poll.ts";
+import { loadPoll } from "../lib/api-client.ts";
 
 export type AutoRefreshingBarGraphProps = BarGraphProps & {
-  pollId: Poll['id'];
-}
+  pollId: Poll["id"];
+};
 
 export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
   const responses = useAutoRefresh({
@@ -13,15 +13,17 @@ export function AutoRefreshingBarGraph(props: AutoRefreshingBarGraphProps) {
     initialResponses: props.responses,
   });
 
-  return <BarGraph responses={responses} />
+  return <BarGraph responses={responses} />;
 }
 
 type AutoRefreshSettings = {
-  pollId: Poll['id'],
-  initialResponses: AutoRefreshingBarGraphProps['responses'],
-}
+  pollId: Poll["id"];
+  initialResponses: AutoRefreshingBarGraphProps["responses"];
+};
 
-function useAutoRefresh(settings: AutoRefreshSettings): AutoRefreshingBarGraphProps['responses'] {
+function useAutoRefresh(
+  settings: AutoRefreshSettings,
+): AutoRefreshingBarGraphProps["responses"] {
   const { pollId, initialResponses } = settings;
   const [responses, setResponses] = useState(initialResponses);
   const isLoading = useRef(false);
@@ -31,12 +33,10 @@ function useAutoRefresh(settings: AutoRefreshSettings): AutoRefreshingBarGraphPr
 
     isLoading.current = true;
     loadPoll(pollId)
-      .then(poll => setResponses(poll.responses))
-      .catch(error => console.error(error))
+      .then((poll) => setResponses(poll.responses))
+      .catch((error) => console.error(error))
       .finally(() => isLoading.current = false);
-    },
-    [pollId, setResponses, isLoading]
-  );
+  }, [pollId, setResponses, isLoading]);
 
   useWindowFocus(refreshData);
   useVisibilityChange(refreshData);
@@ -48,18 +48,18 @@ function useWindowFocus(cb: () => void) {
   useEffect(() => {
     const listener = () => cb();
 
-    globalThis.addEventListener('focus', listener);
-    return () => globalThis.removeEventListener('focus', listener);
+    globalThis.addEventListener("focus", listener);
+    return () => globalThis.removeEventListener("focus", listener);
   }, [cb]);
 }
 
 function useVisibilityChange(cb: (visible: boolean) => void) {
   useEffect(() => {
     const listener = () => {
-      cb(document.visibilityState === 'visible');
+      cb(document.visibilityState === "visible");
     };
 
-    document.addEventListener('visibilitychange', listener);
-    return () => document.removeEventListener('visibilitychange', listener);
+    document.addEventListener("visibilitychange", listener);
+    return () => document.removeEventListener("visibilitychange", listener);
   }, [cb]);
 }

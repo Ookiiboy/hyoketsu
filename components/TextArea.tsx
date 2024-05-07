@@ -6,12 +6,14 @@ export type TextAreaProps = JSX.HTMLAttributes<HTMLTextAreaElement> & {
 };
 
 export function TextArea(props: TextAreaProps) {
-  const errorId = props.error ? props.id + '-error' : undefined;
+  const errorId = props.error ? props.id + "-error" : undefined;
   const value = props.value || undefined;
 
   return (
     <div className={`c-text-area`}>
-      <label className={`c-text-area__label`} for={props.id}>{props.children}</label>
+      <label className={`c-text-area__label`} for={props.id}>
+        {props.children}
+      </label>
       <textarea
         className={`c-text-area__textarea`}
         name={props.name}
@@ -20,7 +22,7 @@ export function TextArea(props: TextAreaProps) {
         value={value}
         aria-describedby={errorId}
       />
-      {props.error && <FormError id={errorId || ''}>{props.error}</FormError>}
+      {props.error && <FormError id={errorId || ""}>{props.error}</FormError>}
     </div>
   );
 }

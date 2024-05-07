@@ -1,6 +1,6 @@
-import * as log from 'log';
+import * as log from "log";
 
-const minLogLevel: log.LevelName = 'INFO';
+const minLogLevel: log.LevelName = "INFO";
 
 log.setup({
   handlers: {
