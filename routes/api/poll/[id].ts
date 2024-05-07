@@ -1,5 +1,5 @@
-import { FreshContext } from "$fresh/server.ts";
-import { store } from "../../../lib/db/poll-store.ts";
+import { FreshContext } from '$fresh/server.ts';
+import { store } from '../../../lib/db/poll-store.ts';
 
 export const handler = async (_req: Request, ctx: FreshContext) => {
   const id = ctx.params.id;

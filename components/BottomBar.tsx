@@ -1,5 +1,5 @@
-import { JSX } from "preact";
-import { FooterLock } from "./FooterLock.tsx";
+import { JSX } from 'preact';
+import { FooterLock } from './FooterLock.tsx';
 
 export function BottomBar(props: JSX.HTMLAttributes<HTMLDivElement>) {
   return (

@@ -1,12 +1,12 @@
-import { JSX } from "preact";
-import { FormError } from "./FormError.tsx";
+import { JSX } from 'preact';
+import { FormError } from './FormError.tsx';
 
 export type TextAreaProps = JSX.HTMLAttributes<HTMLTextAreaElement> & {
   error?: string;
 };
 
 export function TextArea(props: TextAreaProps) {
-  const errorId = props.error ? props.id + "-error" : undefined;
+  const errorId = props.error ? props.id + '-error' : undefined;
   const value = props.value || undefined;
 
   return (
@@ -22,7 +22,7 @@ export function TextArea(props: TextAreaProps) {
         value={value}
         aria-describedby={errorId}
       />
-      {props.error && <FormError id={errorId || ""}>{props.error}</FormError>}
+      {props.error && <FormError id={errorId || ''}>{props.error}</FormError>}
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import { minutesToLive } from "../lib/expiration.ts";
-import Logo from "../components/Logo.tsx";
+import { minutesToLive } from '../lib/expiration.ts';
+import Logo from '../components/Logo.tsx';
 export default function Home() {
   return (
     <>
-      <a href="/" style={{ textDecoration: "none", color: "inherit" }}>
+      <a href='/' style={{ textDecoration: 'none', color: 'inherit' }}>
         <Logo />
       </a>
       <p>
@@ -11,10 +11,10 @@ export default function Home() {
           title={`Polls last ${minutesToLive} minutes, and then are gone forever.`}
         >
           Ephemeral voting
-        </abbr>{" "}
+        </abbr>{' '}
         made easy.
       </p>
-      <a href="/poll/new" className="c-button c-button--primary">
+      <a href='/poll/new' className='c-button c-button--primary'>
         Make a New Poll
       </a>
     </>

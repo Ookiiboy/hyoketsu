@@ -3,11 +3,11 @@ import {
   Poll,
   PollMeta,
   UnsavedPoll,
-} from "../poll.ts";
-import { isExpired, minutesToLive } from "../expiration.ts";
-import { NotFoundError } from "../errors.ts";
-import { ulid } from "ulid";
-import { perfWrapper } from "./perf-wrapper.ts";
+} from '../poll.ts';
+import { isExpired, minutesToLive } from '../expiration.ts';
+import { NotFoundError } from '../errors.ts';
+import { ulid } from 'ulid';
+import { perfWrapper } from './perf-wrapper.ts';
 
 export type PollStore = Awaited<ReturnType<typeof createPollStore>>;
 
@@ -15,21 +15,21 @@ export const store = withTiming(await createPollStore());
 
 function withTiming(store: PollStore): PollStore {
   return {
-    create: perfWrapper("pollStore.create", store.create),
-    getPollMeta: perfWrapper("pollStore.getPollMeta", store.getPollMeta),
-    getPoll: perfWrapper("pollStore.getPoll", store.getPoll),
-    vote: perfWrapper("pollStore.vote", store.vote),
+    create: perfWrapper('pollStore.create', store.create),
+    getPollMeta: perfWrapper('pollStore.getPollMeta', store.getPollMeta),
+    getPoll: perfWrapper('pollStore.getPoll', store.getPoll),
+    vote: perfWrapper('pollStore.vote', store.vote),
   };
 }
 
 async function createPollStore() {
   const kv = await Deno.openKv();
 
-  async function getMeta(id: Poll["id"]): Promise<PollMeta> {
+  async function getMeta(id: Poll['id']): Promise<PollMeta> {
     const { value } = await kv.get<PollMeta>(pollKey(id));
 
     if (!value || isExpired(value)) {
-      throw new NotFoundError("poll not found");
+      throw new NotFoundError('poll not found');
     }
 
     return value;
@@ -80,7 +80,7 @@ async function createPollStore() {
     /**
      * Get a poll, fully populated.
      */
-    async getPoll(id: Poll["id"]): Promise<Poll> {
+    async getPoll(id: Poll['id']): Promise<Poll> {
       const pollMeta = await getMeta(id);
 
       // Load vote counts
@@ -104,7 +104,7 @@ async function createPollStore() {
     },
     async vote(poll: PollMeta, option: string) {
       if (!poll.options.includes(option)) {
-        throw new NotFoundError("option not found");
+        throw new NotFoundError('option not found');
       }
 
       const key = responseKey(poll.id, option);
@@ -117,23 +117,23 @@ async function createPollStore() {
   };
 }
 
-type PollKey = ["poll", Poll["id"]];
-type ResponsesKey = [...PollKey, "responses"];
+type PollKey = ['poll', Poll['id']];
+type ResponsesKey = [...PollKey, 'responses'];
 type ResponseKey = [...ResponsesKey, string];
 
-function pollKey(id: Poll["id"]): PollKey {
-  return ["poll", id] as const;
+function pollKey(id: Poll['id']): PollKey {
+  return ['poll', id] as const;
 }
 
-function responsesKey(id: Poll["id"]): ResponsesKey {
-  return [...pollKey(id), "responses"] as const;
+function responsesKey(id: Poll['id']): ResponsesKey {
+  return [...pollKey(id), 'responses'] as const;
 }
 
-function responseKey(id: Poll["id"], option: string): ResponseKey {
+function responseKey(id: Poll['id'], option: string): ResponseKey {
   return [...responsesKey(id), option] as const;
 }
 
-function defaultResponses(options: Poll["options"]): MultipleChoiceResponses {
+function defaultResponses(options: Poll['options']): MultipleChoiceResponses {
   return options.reduce((counts, curr) => {
     counts[curr] = 0;
     return counts;

@@ -1,4 +1,4 @@
-import { PollMeta } from "./poll.ts";
+import { PollMeta } from './poll.ts';
 
 /**
  * How long polls last.

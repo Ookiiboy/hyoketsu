@@ -1,6 +1,6 @@
-import { JSX } from "preact";
-import { IS_BROWSER } from "$fresh/runtime.ts";
-import { Poll } from "../lib/poll.ts";
+import { JSX } from 'preact';
+import { IS_BROWSER } from '$fresh/runtime.ts';
+import { Poll } from '../lib/poll.ts';
 
 interface BarProps extends JSX.HTMLAttributes<HTMLDetailsElement> {
   value: number;
@@ -17,7 +17,7 @@ const Bar = (props: BarProps) => (
 );
 
 export interface BarGraphProps extends JSX.HTMLAttributes<HTMLDListElement> {
-  responses: Poll["responses"];
+  responses: Poll['responses'];
 }
 
 export function BarGraph(props: BarGraphProps) {
@@ -53,5 +53,5 @@ export function BarGraph(props: BarGraphProps) {
 
 function formatPercent(value: number): string {
   const str = value.toFixed(1);
-  return str.endsWith(".0") ? str.slice(0, -".0".length) : str;
+  return str.endsWith('.0') ? str.slice(0, -'.0'.length) : str;
 }

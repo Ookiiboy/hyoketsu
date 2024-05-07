@@ -1,7 +1,7 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
-import { Poll } from "../../../lib/poll.ts";
-import { store } from "../../../lib/db/poll-store.ts";
-import { AutoRefreshingBarGraph } from "../../../islands/AutoRefreshingBarGraph.tsx";
+import { Handlers, PageProps } from '$fresh/server.ts';
+import { Poll } from '../../../lib/poll.ts';
+import { store } from '../../../lib/db/poll-store.ts';
+import { AutoRefreshingBarGraph } from '../../../islands/AutoRefreshingBarGraph.tsx';
 
 export default function Results(props: PageProps<Poll>) {
   return (
@@ -12,7 +12,7 @@ export default function Results(props: PageProps<Poll>) {
         responses={props.data.responses}
       />
       <br />
-      <a className="c-button c-button--primary" href="results">Refresh</a>
+      <a className='c-button c-button--primary' href='results'>Refresh</a>
     </>
   );
 }

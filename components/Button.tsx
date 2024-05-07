@@ -1,4 +1,4 @@
-import { JSX } from "preact";
+import { JSX } from 'preact';
 export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
   primary?: boolean;
 }

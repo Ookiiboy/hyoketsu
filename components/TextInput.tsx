@@ -1,12 +1,12 @@
-import { JSX } from "preact";
-import { FormError } from "./FormError.tsx";
+import { JSX } from 'preact';
+import { FormError } from './FormError.tsx';
 
 export type TextInputProps = JSX.HTMLAttributes<HTMLInputElement> & {
   error?: string;
 };
 
 export function TextInput(props: TextInputProps) {
-  const errorId = props.error ? props.id + "-error" : undefined;
+  const errorId = props.error ? props.id + '-error' : undefined;
   const value = props.value || undefined;
 
   return (
@@ -17,13 +17,13 @@ export function TextInput(props: TextInputProps) {
       <input
         className={`c-text-input__input`}
         placeholder={props.placeholder}
-        type="text"
+        type='text'
         name={props.name}
         id={props.id}
         value={value}
         aria-describedby={errorId}
       />
-      {props.error && <FormError id={errorId || ""}>{props.error}</FormError>}
+      {props.error && <FormError id={errorId || ''}>{props.error}</FormError>}
     </div>
   );
 }

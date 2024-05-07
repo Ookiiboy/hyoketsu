@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "../components/Button.tsx";
+import { Button, ButtonProps } from '../components/Button.tsx';
 
 type ShareButtonProps = ButtonProps & {
   url: string;
@@ -13,7 +13,7 @@ export function ShareButton(props: ShareButtonProps) {
 
   const copyUrl = () => {
     navigator.clipboard.writeText(url)
-      .then(() => alert("Copied!"));
+      .then(() => alert('Copied!'));
   };
 
   return <Button {...buttonProps} onClick={copyUrl}></Button>;

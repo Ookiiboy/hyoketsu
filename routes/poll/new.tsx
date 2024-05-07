@@ -1,10 +1,10 @@
-import { Handlers, PageProps, RouteContext } from "$fresh/server.ts";
-import { MultipleChoiceResponses, UnsavedPoll } from "../../lib/poll.ts";
-import { store } from "../../lib/db/poll-store.ts";
-import { BottomBar } from "../../components/BottomBar.tsx";
-import { Button } from "../../components/Button.tsx";
-import { TextInput } from "../../components/TextInput.tsx";
-import { TextArea } from "../../components/TextArea.tsx";
+import { Handlers, PageProps, RouteContext } from '$fresh/server.ts';
+import { MultipleChoiceResponses, UnsavedPoll } from '../../lib/poll.ts';
+import { store } from '../../lib/db/poll-store.ts';
+import { BottomBar } from '../../components/BottomBar.tsx';
+import { Button } from '../../components/Button.tsx';
+import { TextInput } from '../../components/TextInput.tsx';
+import { TextArea } from '../../components/TextArea.tsx';
 
 type FormErrors = {
   prompt?: string;
@@ -36,7 +36,7 @@ export const handler: Handlers = {
     const { prompt, options } = parseResult.values;
 
     const unsaved: UnsavedPoll = {
-      type: "multiple",
+      type: 'multiple',
       prompt,
       options,
     };
@@ -44,7 +44,7 @@ export const handler: Handlers = {
     const poll = await store.create(unsaved);
 
     const headers = new Headers();
-    headers.set("location", `${poll.id}/share`);
+    headers.set('location', `${poll.id}/share`);
     return new Response(null, {
       status: 303,
       headers,
@@ -61,27 +61,27 @@ export default function New(props: PageProps<ParseResult | undefined>) {
   return (
     <>
       <h1 className={`h2`}>New Poll</h1>
-      <form method="post">
+      <form method='post'>
         <TextInput
-          name="prompt"
-          id="prompt"
-          placeholder="Doughnuts or bagels?"
+          name='prompt'
+          id='prompt'
+          placeholder='Doughnuts or bagels?'
           value={formState.values.prompt}
           error={formState.errors.prompt}
         >
           Poll Question
         </TextInput>
         <TextArea
-          name="options"
-          id="pollOptions"
-          placeholder="One choice per line..."
-          value={formState.values.options.join("\n")}
+          name='options'
+          id='pollOptions'
+          placeholder='One choice per line...'
+          value={formState.values.options.join('\n')}
           error={formState.errors.options}
         >
           Poll Choices
         </TextArea>
         <BottomBar>
-          <Button primary type="submit">Make Poll</Button>
+          <Button primary type='submit'>Make Poll</Button>
         </BottomBar>
       </form>
     </>
@@ -90,7 +90,7 @@ export default function New(props: PageProps<ParseResult | undefined>) {
 
 function defaultValues(): FormValues {
   return {
-    prompt: "",
+    prompt: '',
     options: [],
   };
 }
@@ -98,12 +98,12 @@ function defaultValues(): FormValues {
 function parseFormSubmission(formData: FormData): ParseResult {
   const errors: FormErrors = {};
 
-  const prompt = stringValue("prompt", formData).trim();
+  const prompt = stringValue('prompt', formData).trim();
   if (prompt.length === 0) {
-    errors.prompt = "Question cannot be blank";
+    errors.prompt = 'Question cannot be blank';
   }
 
-  const rawOptions = stringValue("options", formData);
+  const rawOptions = stringValue('options', formData);
   const options = unique(
     rawOptions
       .split(/\r?\n/)
@@ -113,7 +113,7 @@ function parseFormSubmission(formData: FormData): ParseResult {
   );
 
   if (options.length === 0) {
-    errors.options = "Must include at least 1 choice";
+    errors.options = 'Must include at least 1 choice';
   }
 
   return {
@@ -132,9 +132,9 @@ function stringValue(name: string, formData: FormData): string {
   const value = formData.get(name);
   // Unexpected file
   if (value instanceof Blob) {
-    return "";
+    return '';
   } else {
-    return value ?? "";
+    return value ?? '';
   }
 }
 

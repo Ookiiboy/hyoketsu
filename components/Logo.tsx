@@ -1,5 +1,5 @@
 const Check = () => (
-  <span style={{ color: "var(--primary-accent-color)" }}>✔</span>
+  <span style={{ color: 'var(--primary-accent-color)' }}>✔</span>
 );
 
 export default function Logo() {

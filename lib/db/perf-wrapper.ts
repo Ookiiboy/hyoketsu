@@ -1,4 +1,4 @@
-import { logger } from "../logger.ts";
+import { logger } from '../logger.ts';
 
 // deno-lint-ignore no-explicit-any
 export function perfWrapper<T, A extends any[]>(

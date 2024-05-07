@@ -17,6 +17,10 @@
       ]
     }
   },
+  "fmt": {
+    "lineWidth": 80,
+    "singleQuote": true
+  },
   "exclude": [
     "**/_fresh/*",
     ".direnv"
