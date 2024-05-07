@@ -22,7 +22,7 @@
     devShells = eachSystem (pkgs: {
       default = pkgs.mkShell {
         shellHook = ''
-          export PATH="$HOME/.deno/bin:$PATH"
+          export PATH="bin:$PATH"
         '';
         SHELL_ENV = "dev";
         PORT = 6969;
