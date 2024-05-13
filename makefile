@@ -20,8 +20,8 @@ update: ## Dev - Update the flake
 update-fresh: ## Dev -- Update Fresh
 	deno run -A -r https://fresh.deno.dev/update .
 
-dev:
+dev: ## Start the development Server
 	deno task start
 
-deploy:
+deploy: ## Deploy the app
 	deployctl deploy --org=ookiiboy --project=hyoketsu --save-config
