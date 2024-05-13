@@ -20,5 +20,7 @@ pre-commit:
     checkmake:
       glob: "makefile"
       run: checkmake {staged_files}
+    # This runs deno's formatter, the config is sitting in the deno.json file. 
+    # If you need to make changes, make it there.
     deno-format:
       run: deno fmt
