@@ -30,6 +30,7 @@
           denolint.enable = true;
           shellcheck.enable = true;
           check-json.enable = true;
+          actionlint.enable = true;
         };
       };
     });
