@@ -15,6 +15,7 @@
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    # https://github.com/cachix/git-hooks.nix?tab=readme-ov-file
     checks = forAllSystems (system: {
       pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
         src = ./.;
