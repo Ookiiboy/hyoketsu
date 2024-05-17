@@ -13,3 +13,4 @@ result-*
 _fresh/
 # npm dependencies
 node_modules/
+.pre-commit-config.yaml
