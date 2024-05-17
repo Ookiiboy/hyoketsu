@@ -1,5 +1,5 @@
-import { Handlers, PageProps, RouteContext } from '$fresh/server.ts';
-import { MultipleChoiceResponses, UnsavedPoll } from '../../lib/poll.ts';
+import { Handlers, PageProps } from '$fresh/server.ts';
+import { UnsavedPoll } from '../../lib/poll.ts';
 import { store } from '../../lib/db/poll-store.ts';
 import { BottomBar } from '../../components/BottomBar.tsx';
 import { Button } from '../../components/Button.tsx';
@@ -23,7 +23,7 @@ type ParseResult = {
 };
 
 export const handler: Handlers = {
-  async GET(req, ctx) {
+  async GET(_req, ctx) {
     return await ctx.render();
   },
   async POST(req, ctx) {
