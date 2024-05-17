@@ -11,14 +11,14 @@
     nixpkgs,
     pre-commit-hooks,
     ...
-  } @ inputs: let
+  }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     # https://github.com/cachix/git-hooks.nix?tab=readme-ov-file
     # https://devenv.sh/reference/options/?query=pre-commit.hooks
     checks = forAllSystems (system: {
-      pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+      pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = ./.;
         hooks = {
           alejandra.enable = true;
