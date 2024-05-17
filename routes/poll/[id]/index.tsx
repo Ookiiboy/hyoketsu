@@ -5,7 +5,7 @@ import { RadioButton } from '../../../components/RadioButton.tsx';
 import { RadioFieldset } from '../../../components/RadioFieldset.tsx';
 import { Button } from '../../../components/Button.tsx';
 import { BottomBar } from '../../../components/BottomBar.tsx';
-import { NotFoundError } from '../../../lib/errors.ts';
+import * as urls from '../../../lib/urls.ts';
 
 export default function Vote(props: PageProps<PollMeta>) {
   return (
@@ -49,7 +49,7 @@ export const handler: Handlers = {
 
     // Redirect user to results page
     const headers = new Headers();
-    headers.set('location', `results`);
+    headers.set('location', urls.results(ctx.url, poll.id));
     return new Response(null, {
       status: 303,
       headers,

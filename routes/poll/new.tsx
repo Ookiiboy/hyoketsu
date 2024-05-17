@@ -5,6 +5,7 @@ import { BottomBar } from '../../components/BottomBar.tsx';
 import { Button } from '../../components/Button.tsx';
 import { TextInput } from '../../components/TextInput.tsx';
 import { TextArea } from '../../components/TextArea.tsx';
+import * as urls from '../../lib/urls.ts';
 
 type FormErrors = {
   prompt?: string;
@@ -44,7 +45,7 @@ export const handler: Handlers = {
     const poll = await store.create(unsaved);
 
     const headers = new Headers();
-    headers.set('location', `${poll.id}/share`);
+    headers.set('location', urls.share(ctx.url, poll.id));
     return new Response(null, {
       status: 303,
       headers,
