@@ -10,9 +10,6 @@ help: ## Help What runs when you type `make help`.
 test: ## Dev - Run linters and tests.
 	nix flake check
 
-add-hooks: ## Dev - Install git hooks.
-	lefthook install
-
 update: ## Dev - Update the flake
 	nix flake update
 
