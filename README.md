@@ -12,7 +12,7 @@ it uses the honor system.
   [Deno KV](https://deno.com/kv) for temporary storage
 - It uses [nix package manager](https://nixos.org/download/) for managing
   development environment dependencies
-- Development enviroments can be automatically loaded through
+- Development environments can be automatically loaded through
   [direnv](https://direnv.net/)
 - Licenced under the
   [Hippocratic License v3.0 (HL3)](https://firstdonoharm.dev/); for its specific
@@ -25,12 +25,9 @@ itself. To get started:
 
 1. Install `nix` package-manager
 
-1. Using `nix` enable or install `direnv` (reccomended), or when you enter the
+1. Using `nix` enable or install `direnv` (recommended), or when you enter the
    directory type `nix shell`. When you `cd` into the project folder, `direnv`
    will ask for your permission to download all dependencies.
-
-1. If you plan on contributing to the project install the githooks by typing:
-   `make add-hooks`
 
 ## Run the dev server
 

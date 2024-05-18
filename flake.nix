@@ -29,8 +29,12 @@
           denofmt.enable = true;
           denolint.enable = true;
           shellcheck.enable = true;
+          beautysh.enable = true;
+          check-shebang-scripts-are-executable.enable = true;
           check-json.enable = true;
           actionlint.enable = true;
+          typos.enable = true;
+          editorconfig-checker.enable = true;
           stylelint = {
             enable = true;
             name = "Stylelint";

@@ -1,0 +1,57 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# 4 space indentation
+[*.{js,jsx,ts,tsx,json,html,css,scss}]
+indent_style = space
+indent_size = 2
+
+# 2 space indentation
+[*.{yml,yaml,xml}]
+indent_style = space
+indent_size = 2
+
+# Use spaces for Python and indentation of 4 spaces
+[*.py]
+indent_style = tab
+indent_size = 2
+
+# Specific settings for Markdown files
+[*.md]
+indent_style = space
+trim_trailing_whitespace = false
+
+# Makefile uses tabs
+[Makefile]
+indent_style = tab
+
+
+# Configuration files
+[*.{ini,config,toml}]
+indent_style = space
+indent_size = 2
+
+# Disable trimming of trailing whitespace for all text files
+[*.txt]
+trim_trailing_whitespace = false
+
+# HTML files
+[*.html]
+indent_style = space
+indent_size = 2
+
+# YAML files
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
+# JSON files
+[*.json]
+indent_style = space
+indent_size = 2
