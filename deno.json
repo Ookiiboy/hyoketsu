@@ -44,8 +44,6 @@
   "deploy": {
     "project": "11a1aba9-53a3-43f3-bdfe-c83a8f4b2481",
     "exclude": [
-      "**/node_modules",
-      "**/node_modules",
       "**/node_modules"
     ],
     "include": [],
