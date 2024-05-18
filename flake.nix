@@ -34,7 +34,7 @@
           stylelint = {
             enable = true;
             name = "Stylelint";
-            entry = "${nixpkgs.legacyPackages.${system}.stylelint}/bin/stylelint --fix $@";
+            entry = "${nixpkgs.legacyPackages.${system}.stylelint}/bin/stylelint";
             files = "\\.(css)$";
             types = ["text" "css"];
             language = "system";

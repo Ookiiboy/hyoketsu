@@ -151,18 +151,6 @@
     ],
     "selector-anb-no-unmatchable": true,
     "selector-attribute-quotes": "always",
-    "selector-class-pattern": [
-      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-      {
-        "message": "Expected class selector to be kebab-case"
-      }
-    ],
-    "selector-id-pattern": [
-      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-      {
-        "message": "Expected id selector to be kebab-case"
-      }
-    ],
     "selector-no-vendor-prefix": true,
     "selector-not-notation": "complex",
     "selector-pseudo-class-no-unknown": true,
