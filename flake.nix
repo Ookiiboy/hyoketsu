@@ -43,6 +43,7 @@
           typos.enable = true;
           # Generic - .editorconfig
           editorconfig-checker.enable = true;
+          check-toml.enable = true;
           # CSS - .stylelint.json
           stylelint = {
             enable = true;

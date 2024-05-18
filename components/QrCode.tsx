@@ -17,7 +17,7 @@ export function QrCode(props: QrCodeProps) {
   return (
     <div
       className='c-qr-code'
-      dangerouslySetInnerHTML={{ __html: qrCodeMarkup }}
+      dangerouslySetInnerHTML={{ __html: qrCodeMarkup ? qrCodeMarkup : '' }}
     >
     </div>
   );
