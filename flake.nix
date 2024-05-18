@@ -21,20 +21,29 @@
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = ./.;
         hooks = {
+          # Nix
           alejandra.enable = true;
           deadnix.enable = true;
           statix.enable = true;
           flake-checker.enable = true;
+          # Makefiles
           checkmake.enable = true;
+          # Deno
           denofmt.enable = true;
           denolint.enable = true;
+          # Shell Scripts
           shellcheck.enable = true;
           beautysh.enable = true;
           check-shebang-scripts-are-executable.enable = true;
+          # JSON
           check-json.enable = true;
+          # Github Actions
           actionlint.enable = true;
+          # Markdown
           typos.enable = true;
+          # Generic - .editorconfig
           editorconfig-checker.enable = true;
+          # CSS - .stylelint.json
           stylelint = {
             enable = true;
             name = "Stylelint";
@@ -53,8 +62,8 @@
           ${self.checks.${system}.pre-commit-check.shellHook}
           export PATH="bin:$PATH"
         '';
-        SHELL_ENV = "dev";
-        PORT = 6969;
+        SHELL_ENV = "dev"; # Use in the event we need a development environment hook
+        PORT = 6969; # Sets the development server's port
         buildInputs = with nixpkgs.legacyPackages.${system};
           [
             gnumake
