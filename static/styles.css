@@ -494,8 +494,8 @@ sub {
 }
 
 .c-button:hover {
-  /* stylelint-disable-line */
-  background-color: rgba(var(--color-values-fg) .1);
+  /* stylelint-disable-next-line color-function-notation */
+  background-color: rgba(var(--color-values-fg), .1);
 }
 
 .c-button:active {
@@ -510,8 +510,8 @@ sub {
 }
 
 .c-button--primary:hover {
-  /* stylelint-disable-line */
-  background-color: rgba(var(--color-values-accent) .8);
+  /* stylelint-disable-next-line color-function-notation */
+  background-color: rgba(var(--color-values-accent), .8);
 }
 
 /* Bottom Bar *****************************************************************/
