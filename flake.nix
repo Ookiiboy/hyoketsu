@@ -34,27 +34,11 @@
           stylelint = {
             enable = true;
             name = "Stylelint";
-
-            # The command to execute (mandatory):
             entry = "${nixpkgs.legacyPackages.${system}.stylelint}/bin/stylelint";
-
-            # The pattern of files to run on (default: "" (all))
-            # see also https://pre-commit.com/#hooks-files
             files = "\\.(css)$";
-
-            # List of file types to run on (default: [ "file" ] (all files))
-            # see also https://pre-commit.com/#filtering-files-with-types
-            # You probably only need to specify one of `files` or `types`:
             types = ["text" "css"];
-
-            # The language of the hook - tells pre-commit
-            # how to install the hook (default: "system")
-            # see also https://pre-commit.com/#supported-languages
             language = "system";
-
-            # Set this to false to not pass the changed files
-            # to the command (default: true):
-            pass_filenames = false;
+            pass_filenames = true;
           };
         };
       };

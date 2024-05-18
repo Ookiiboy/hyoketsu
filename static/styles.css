@@ -40,7 +40,7 @@ hr {
   overflow: visible;
 }
 pre {
-  font-family: monospace, monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 a {
@@ -59,7 +59,7 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 small {
@@ -162,6 +162,7 @@ summary {
 /*******************************************************************************
  Box-Sizing
 ********************************************************************************/
+/* stylelint-disable-next-line no-duplicate-selectors */
 html {
   box-sizing: border-box;
 }
@@ -195,6 +196,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* stylelint-disable-next-line no-duplicate-selectors */
 fieldset {
   min-width: 0;
   border: 0;
@@ -202,6 +204,7 @@ fieldset {
 /*******************************************************************************
  Single Direction Margins
 ********************************************************************************/
+/* stylelint-disable-next-line  no-descending-specificity*/
 address,
 blockquote, p, pre,
 dl, ol, ul,
@@ -211,12 +214,14 @@ table,
 fieldset {
   margin-bottom: var(--default-spacing);
 }
+/* stylelint-disable-next-line  no-descending-specificity*/
 dd, ol, ul {
   margin-left: var(--default-spacing);
 }
 /*******************************************************************************
  Page Settings
 ********************************************************************************/
+/* stylelint-disable-next-line no-duplicate-selectors */
 html {
   font-size: var(--default-font-size); 
   line-height: var(--default-line-height);
@@ -274,6 +279,7 @@ body, .article {
   margin-top: 1.6em;
   margin-bottom: 0em;
 }
+/* stylelint-disable-next-line  no-descending-specificity*/
 p, ul, ol, pre, table, blockquote {
   margin-top: 0em;
   margin-bottom: 1.6em;
@@ -282,7 +288,6 @@ ul ul, ol ol, ul ol, ol ul {
   margin-top: 0em;
   margin-bottom: 0em;
 }
-
 /* Let's make sure all's aligned */
 hr, .hr {
   border: 1px solid var(--primary-fg-color);
@@ -291,14 +296,17 @@ hr, .hr {
 a, b, i, strong, em, small, code {
   line-height: 0;
 }
+/* stylelint-disable-next-line no-duplicate-selectors */
 sub, sup {
   line-height: 0;
   position: relative;
   vertical-align: baseline;
 }
+/* stylelint-disable-next-line no-duplicate-selectors */
 sup {
   top: -0.5em;
 }
+/* stylelint-disable-next-line no-duplicate-selectors */
 sub {
   bottom: -0.25em;
 }
@@ -370,10 +378,6 @@ sub {
 .c-radio-button {
   display: block;
 }
-.c-radio-button__input:checked ~ .c-radio-button__text {
-  background-color: var(--primary-fg-color);
-  color: var(--primary-bg-color);
-}
 .c-radio-button__input {
   display: none;
 }
@@ -395,6 +399,10 @@ sub {
 }
 .c-radio-button__text:active {
   transform: scale(.95);
+}
+.c-radio-button__input:checked ~ .c-radio-button__text {
+  background-color: var(--primary-fg-color);
+  color: var(--primary-bg-color);
 }
 /* Button *********************************************************************/
 .c-button {
@@ -467,6 +475,7 @@ sub {
   margin-left: 0;
   margin-top: calc(var(--default-spacing) / 2);
 }
+
 /* Form Error *****************************************************************/
 .c-form-error {
   font-weight: bold;
