@@ -146,7 +146,7 @@ fieldset {
 }
 
 legend {
-  box-sizing: border-box;
+    box-sizing: border-box;
   display: table;
   max-width: 100%;
   padding: 0;
