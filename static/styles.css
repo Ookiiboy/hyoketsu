@@ -493,12 +493,13 @@ sub {
     transform .1s;
 }
 
-.c-button:active {
-  transform: scale(.98);
+.c-button:hover {
+  /* stylelint-disable-line */
+  background-color: rgba(var(--color-values-fg) .1);
 }
 
-.c-button:hover {
-  background-color: rgb(var(--color-values-fg) .1);
+.c-button:active {
+  transform: scale(.98);
 }
 
 /* Button - Primary */
@@ -509,7 +510,8 @@ sub {
 }
 
 .c-button--primary:hover {
-  background-color: rgb(var(--color-values-accent) .8);
+  /* stylelint-disable-line */
+  background-color: rgba(var(--color-values-accent) .8);
 }
 
 /* Bottom Bar *****************************************************************/
