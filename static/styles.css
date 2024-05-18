@@ -495,7 +495,8 @@ sub {
 
 .c-button:hover {
   /* stylelint-disable-next-line color-function-notation */
-  background-color: rgba(var(--color-values-fg), .1);
+  background-color: rgba(var(--color-values-fg), .1);  /* Stylelint doesn't 
+  know how to handle this interpolation. So disabling. */
 }
 
 .c-button:active {
@@ -511,7 +512,8 @@ sub {
 
 .c-button--primary:hover {
   /* stylelint-disable-next-line color-function-notation */
-  background-color: rgba(var(--color-values-accent), .8);
+  background-color: rgba(var(--color-values-accent), .8);  /* Stylelint doesn't 
+  know how to handle this interpolation. So disabling. */
 }
 
 /* Bottom Bar *****************************************************************/
