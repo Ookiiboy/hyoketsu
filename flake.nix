@@ -63,7 +63,7 @@
           ${self.checks.${system}.pre-commit-check.shellHook}
           export PATH="bin:$PATH"
         '';
-        SHELL_ENV = "dev"; # Use in the event we need a development environment hook
+        ENV = "dev"; # Use in the event we need a development environment hook
         PORT = 6969; # Sets the development server's port
         buildInputs = with nixpkgs.legacyPackages.${system};
           [

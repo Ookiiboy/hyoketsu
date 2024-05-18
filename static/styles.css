@@ -562,3 +562,19 @@ sub {
   font-weight: bold;
   color: red;
 }
+
+/* Environment Warning */
+.c-env::before {
+  display: block;
+  font-weight: bold;
+  padding-left: .5em;
+  color: red;
+  content: attr(data-env);
+  user-select: none;
+  pointer-events: none;
+  border-top: 3px solid red;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: relative;
+}

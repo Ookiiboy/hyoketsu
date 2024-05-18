@@ -2,6 +2,8 @@ import { asset } from '$fresh/runtime.ts';
 import { type PageProps } from '$fresh/server.ts';
 import { Container } from '../components/Container.tsx';
 export default function App({ Component }: PageProps) {
+  const env = Deno.env.get('ENV');
+  const isDev = env === 'dev';
   return (
     <html>
       <head>
@@ -22,6 +24,7 @@ export default function App({ Component }: PageProps) {
         <link rel='stylesheet' href={asset('/styles.css')} />
       </head>
       <body>
+        {isDev && <div className={`c-env`} data-env={env} />}
         <Container>
           <Component />
         </Container>
