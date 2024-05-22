@@ -1,11 +1,12 @@
 import { asset } from '$fresh/runtime.ts';
 import { type PageProps } from '$fresh/server.ts';
 import { Container } from '../components/Container.tsx';
+
 export default function App({ Component }: PageProps) {
   const env = Deno.env.get('ENV');
   const isDev = env === 'dev';
   return (
-    <html>
+    <html lang='en'>
       <head>
         <meta charset='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
