@@ -1,6 +1,7 @@
 import { asset } from '$fresh/runtime.ts';
 import { type PageProps } from '$fresh/server.ts';
 import { Container } from '../components/Container.tsx';
+import { minutesToLive } from '../lib/expiration.ts';
 
 export default function App({ Component }: PageProps) {
   const env = Deno.env.get('ENV');
@@ -10,6 +11,10 @@ export default function App({ Component }: PageProps) {
       <head>
         <meta charset='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta
+          name='description'
+          content={`Polls last ${minutesToLive} minutes, and then are gone forever.`}
+        />
         <title>Hyōketsu 票決 - Ephemeral Voting</title>
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link
