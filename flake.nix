@@ -36,7 +36,6 @@
           # Shell Scripts
           shellcheck.enable = true;
           beautysh.enable = true;
-          check-shebang-scripts-are-executable.enable = true;
           # JSON
           check-json.enable = true;
           # Github Actions
