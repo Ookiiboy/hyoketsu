@@ -3,6 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    nix-plop.url = "gitlab:cbleslie/nix-plop";
   };
 
   outputs = {
@@ -10,6 +11,7 @@
     systems,
     nixpkgs,
     pre-commit-hooks,
+    nix-plop,
     ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
@@ -67,6 +69,7 @@
         PORT = 6969; # Sets the development server's port
         buildInputs = with nixpkgs.legacyPackages.${system};
           [
+            nix-plop.packages.${system}.default
             gnumake
             deno
             # Typescript LSP for SublimeText runs on node

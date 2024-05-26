@@ -1,0 +1,9 @@
+import { JSX } from 'preact';
+
+export function {{pascalCase componentName}}(props: JSX.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={`c-{{dashCase componentName}}`}>
+      {props.children}
+    </div>
+  );
+}
