@@ -43,11 +43,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1716664204,
-        "narHash": "sha256-0t0gFd4MP3xYUT/S4s4FSFfzastcl17SDA4yr/+mzcg=",
+        "lastModified": 1716693359,
+        "narHash": "sha256-uZSMpSafgeY9QGGA1ToUjx54yqhJRzhgVtqyJJQ/Thg=",
         "owner": "cbleslie",
         "repo": "nix-plop",
-        "rev": "f216ea3cb13b3e171e7a648d91d1fcd0ae367c43",
+        "rev": "07c6294964d0d7f98f1e9e9667c5f7fd1e5c18c9",
         "type": "gitlab"
       },
       "original": {
@@ -86,11 +86,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1715037484,
-        "narHash": "sha256-OUt8xQFmBU96Hmm4T9tOWTu4oCswCzoVl+pxSq/kiFc=",
+        "lastModified": 1717893485,
+        "narHash": "sha256-WMU6ZRZrBgEUDIF0siu2aIyVAXcxfElSwzZtS/mSpN4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ad7efee13e0d216bf29992311536fce1d3eefbef",
+        "rev": "3bcedce9f4de37570242faf16e1e143583407eab",
         "type": "github"
       },
       "original": {
@@ -124,11 +124,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1715870890,
-        "narHash": "sha256-nacSOeXtUEM77Gn0G4bTdEOeFIrkCBXiyyFZtdGwuH0=",
+        "lastModified": 1717664902,
+        "narHash": "sha256-7XfBuLULizXjXfBYy/VV+SpYMHreNRHk9nKMsm1bgb4=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "fa606cccd7b0ccebe2880051208e4a0f61bfc8c1",
+        "rev": "cc4d466cb1254af050ff7bdf47f6d404a7c646d1",
         "type": "github"
       },
       "original": {
@@ -142,7 +142,24 @@
         "nix-plop": "nix-plop",
         "nixpkgs": "nixpkgs_2",
         "pre-commit-hooks": "pre-commit-hooks",
+        "stylelint-config-recommended": "stylelint-config-recommended",
         "systems": "systems_2"
+      }
+    },
+    "stylelint-config-recommended": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717390698,
+        "narHash": "sha256-N9aegi+qkV44i7t5yAvDsjeaWTqQjRzdI7vPI6eQU2s=",
+        "owner": "stylelint",
+        "repo": "stylelint-config-recommended",
+        "rev": "ba645d4f5b9e99aae7899521bad89757f924d82b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stylelint",
+        "repo": "stylelint-config-recommended",
+        "type": "github"
       }
     },
     "systems": {

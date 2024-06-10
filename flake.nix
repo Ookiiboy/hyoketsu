@@ -4,6 +4,10 @@
     systems.url = "github:nix-systems/default";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-plop.url = "gitlab:cbleslie/nix-plop";
+
+    # Stylelint Config
+    stylelint-config-recommended.url = "github:stylelint/stylelint-config-recommended";
+    stylelint-config-recommended.flake = false;
   };
 
   outputs = {
@@ -12,6 +16,7 @@
     nixpkgs,
     pre-commit-hooks,
     nix-plop,
+    stylelint-config-recommended,
     ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
@@ -60,11 +65,16 @@
     });
     devShells = forAllSystems (system: {
       default = nixpkgs.legacyPackages.${system}.mkShell {
+        # We're going to make a symlink and create a direct reference to the
+        # stylelint config, rather than have a copy. No, npm or yarn
+        # package.json to install this file, so we fetch it directly from the
+        # github repo itself. This keeps the install and deps clean.
         shellHook = ''
+          ln -sf ${stylelint-config-recommended}/index.js ./stylelint.config.mjs
           ${self.checks.${system}.pre-commit-check.shellHook}
           export PATH="bin:$PATH"
         '';
-        ENV = "dev"; # Use in the event we need a development environment hook
+        ENV = "dev"; # Used in the event we need a development environment hook.
         PORT = 6969; # Sets the development server's port
         buildInputs = with nixpkgs.legacyPackages.${system};
           [

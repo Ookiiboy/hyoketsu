@@ -566,7 +566,7 @@ sub {
 /* Environment Warning */
 .c-env::before {
   display: block;
-  font-weight: bold;
+  font-weight:      bold;
   padding-left: .5em;
   color: red;
   content: attr(data-env);
