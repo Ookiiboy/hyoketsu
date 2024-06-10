@@ -72,7 +72,6 @@
         shellHook = ''
           ln -sf ${stylelint-config-recommended}/index.js ./stylelint.config.mjs
           ${self.checks.${system}.pre-commit-check.shellHook}
-          export PATH="bin:$PATH"
         '';
         ENV = "dev"; # Used in the event we need a development environment hook.
         PORT = 6969; # Sets the development server's port
