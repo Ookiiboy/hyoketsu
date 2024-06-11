@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "editorconfig": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718149208,
+        "narHash": "sha256-YV4Rvr2ezHAvCkVfo3NQInGF4I5cjFGxV4WyMns96l8=",
+        "owner": "Ookiiboy",
+        "repo": "editor-config",
+        "rev": "76eecd9bc31b3e585897880abfff2ba5c2f84975",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ookiiboy",
+        "repo": "editor-config",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -139,6 +155,7 @@
     },
     "root": {
       "inputs": {
+        "editorconfig": "editorconfig",
         "nix-plop": "nix-plop",
         "nixpkgs": "nixpkgs_2",
         "pre-commit-hooks": "pre-commit-hooks",

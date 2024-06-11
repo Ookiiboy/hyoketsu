@@ -16,3 +16,4 @@ node_modules/
 .pre-commit-config.yaml
 # Symlinked Flake Inputs
 stylelint.config.mjs
+.editorconfig

@@ -8,6 +8,8 @@
     # Stylelint Config
     stylelint-config-recommended.url = "github:stylelint/stylelint-config-recommended";
     stylelint-config-recommended.flake = false;
+    editorconfig.url = "github:Ookiiboy/editor-config/";
+    editorconfig.flake = false;
   };
 
   outputs = {
@@ -17,6 +19,7 @@
     pre-commit-hooks,
     nix-plop,
     stylelint-config-recommended,
+    editorconfig,
     ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
@@ -65,12 +68,14 @@
     });
     devShells = forAllSystems (system: {
       default = nixpkgs.legacyPackages.${system}.mkShell {
+        name = "Local Development Shell";
         # We're going to make a symlink and create a direct reference to the
         # stylelint config, rather than have a copy. No, npm or yarn
         # package.json to install this file, so we fetch it directly from the
         # github repo itself. This keeps the install and deps clean.
         shellHook = ''
           ln -sf ${stylelint-config-recommended}/index.js ./stylelint.config.mjs
+          ln -sf ${editorconfig}/.editorconfig ./.editorconfig
           ${self.checks.${system}.pre-commit-check.shellHook}
         '';
         ENV = "dev"; # Used in the event we need a development environment hook.
