@@ -3,11 +3,11 @@
     "editorconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1718149736,
-        "narHash": "sha256-smQA2D4RWcjww3VwEAN9IoR6DjWofm1P9SwoXOf/4xc=",
+        "lastModified": 1718201599,
+        "narHash": "sha256-jZFkUEesLIofSsKoj+BK0jqJS5Sziekzfcqkk4acCrQ=",
         "owner": "Ookiiboy",
         "repo": "editor-config",
-        "rev": "81133540dbd7c4631b2be854dd81714a89aedf7d",
+        "rev": "11b1089e053bc49e6af570e7093350b026f93e80",
         "type": "github"
       },
       "original": {
