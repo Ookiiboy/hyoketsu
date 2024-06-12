@@ -24,10 +24,15 @@
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
   in {
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    formatter = forAllSystems (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in
+      pkgs.alejandra);
     # https://github.com/cachix/git-hooks.nix?tab=readme-ov-file
     # https://devenv.sh/reference/options/?query=pre-commit.hooks
-    checks = forAllSystems (system: {
+    checks = forAllSystems (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = ./.;
         hooks = {
@@ -57,7 +62,7 @@
           stylelint = {
             enable = true;
             name = "Stylelint";
-            entry = "${nixpkgs.legacyPackages.${system}.stylelint}/bin/stylelint --fix";
+            entry = "${pkgs.stylelint}/bin/stylelint --fix";
             files = "\\.(css)$";
             types = ["text" "css"];
             language = "system";
@@ -66,8 +71,10 @@
         };
       };
     });
-    devShells = forAllSystems (system: {
-      default = nixpkgs.legacyPackages.${system}.mkShell {
+    devShells = forAllSystems (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      default = pkgs.mkShell {
         name = "Local Development Shell";
         # We're going to make a symlink and create a direct reference to the
         # stylelint config, rather than have a copy. No, npm or yarn
@@ -80,7 +87,7 @@
         '';
         ENV = "dev"; # Used in the event we need a development environment hook.
         PORT = 6969; # Sets the development server's port
-        buildInputs = with nixpkgs.legacyPackages.${system};
+        buildInputs = with pkgs;
           [
             nix-plop.packages.${system}.default
             gnumake
