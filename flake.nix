@@ -5,7 +5,7 @@
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-plop.url = "gitlab:cbleslie/nix-plop";
 
-    # Stylelint Config
+    #non-flakes
     stylelint-config-recommended.url = "github:stylelint/stylelint-config-recommended";
     stylelint-config-recommended.flake = false;
     editorconfig.url = "github:Ookiiboy/editor-config/";

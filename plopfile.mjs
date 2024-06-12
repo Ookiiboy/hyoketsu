@@ -1,5 +1,4 @@
 export default function (plop) {
-  // create your generators here
   plop.setGenerator('Component', {
     description: 'A bare bones Component',
     prompts: [{
