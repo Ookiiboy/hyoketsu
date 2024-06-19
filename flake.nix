@@ -24,6 +24,32 @@
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
   in {
+    packages = forAllSystems (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      default = pkgs.stdenv.mkDerivation {
+        pname = "hyoketsu";
+        version = "1.0.0";
+        src = ./.;
+        dontBuild = true;
+        installPhase = ''
+          mkdir -p $out/bin
+          cp * -r $out/bin
+          echo '#!${pkgs.bash}/bin/bash
+            ${pkgs.deno}/bin/deno run -A ${placeholder "out"}/bin/main.ts
+          ' > $out/bin/hyoketsu
+          chmod +x $out/bin/hyoketsu
+        '';
+      };
+      docker = pkgs.dockerTools.buildImage {
+        name = "hyoketsu";
+        config = {
+          Env = ["PATH=${self.packages.${system}.default}/bin"];
+          ExposedPorts = {"8000" = {};};
+          Cmd = ["${self.packages.${system}.default}/bin/hyoketsu"];
+        };
+      };
+    });
     formatter = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
     in
