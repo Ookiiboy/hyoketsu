@@ -31,7 +31,14 @@
         pname = "hyoketsu";
         version = "1.0.0";
         src = ./.;
+        # Don't build because dependencies are gathered on first run by Deno.
+        # Should still be reproduceable because of deno.lock.
         dontBuild = true;
+
+        # We should figure out exactly what runtime permissions we need. -A is
+        # less than ideal.
+        # We should also figure out what files we need, rather than vomit
+        # copy the whole project into /bin.
         installPhase = ''
           mkdir -p $out/bin
           cp * -r $out/bin
