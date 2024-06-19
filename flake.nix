@@ -44,7 +44,6 @@
       docker = pkgs.dockerTools.buildImage {
         name = "hyoketsu";
         config = {
-          Env = ["PATH=${self.packages.${system}.default}/bin"];
           ExposedPorts = {"8000" = {};};
           Cmd = ["${self.packages.${system}.default}/bin/hyoketsu"];
         };
