@@ -59,7 +59,7 @@
         fromImage = pkgs.dockerTools.pullImage {
           imageName = "denoland/deno";
           imageDigest = "sha256:486dd83683ece58367450d9ce190205384ee03d1ec9e30b7406a2295a968f699";
-          sha256 = "sha256-VtUiUZ00G99yaQWtPGq2lXlkcgBUHBTQf3F2xqWZp7o=";
+          sha256 = "sha256-A/ljUnYep52sJ3p38PaM3bVV6j++5yed01Wn7KJoU4k=";
         };
         config = {
           ExposedPorts = {"8000" = {};};
