@@ -58,7 +58,7 @@
         name = "hyoketsu";
         fromImage = pkgs.dockerTools.pullImage {
           imageName = "denoland/deno";
-          imageDigest = "sha256:486dd83683ece58367450d9ce190205384ee03d1ec9e30b7406a2295a968f699";
+          imageDigest = "sha256:b02e55678bc0863f1a21c0054a871bf320a8f0f44157bad573b0339e8fea6277";
           sha256 = "sha256-A/ljUnYep52sJ3p38PaM3bVV6j++5yed01Wn7KJoU4k=";
         };
         config = {
