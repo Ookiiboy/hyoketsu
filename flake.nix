@@ -34,8 +34,9 @@
         # Don't build because dependencies are gathered on first run by Deno.
         # Should still be reproduceable because of deno.lock.
         dontBuild = true;
-        # We should figure out exactly what runtime permissions we need. -A is
-        # less than ideal.
+        # if you're going to run from `result` directory, you should make sure
+        # you're loading through this project's dev-shell. This isn't a true
+        # "package".
         installPhase = ''
           DEPS=(
             "components"
@@ -58,11 +59,14 @@
         name = "hyoketsu";
         fromImage = pkgs.dockerTools.pullImage {
           imageName = "denoland/deno";
+          # Manifest Digest, not Index Digest
           imageDigest = "sha256:b02e55678bc0863f1a21c0054a871bf320a8f0f44157bad573b0339e8fea6277";
           sha256 = "sha256-A/ljUnYep52sJ3p38PaM3bVV6j++5yed01Wn7KJoU4k=";
         };
         config = {
           ExposedPorts = {"8000" = {};};
+          # We should figure out exactly what runtime permissions we need. -A is
+          # less than ideal.
           Cmd = ["deno" "run" "-A" "${self.packages.${system}.default}/bin/main.ts"];
         };
       };
