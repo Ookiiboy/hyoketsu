@@ -52,17 +52,18 @@
           )
           mkdir -p $out/bin
           cp -r "''${DEPS[@]}" $out/bin
-          echo '#!${pkgs.bash}/bin/bash
-            ${pkgs.deno}/bin/deno run -A ${placeholder "out"}/bin/main.ts
-          ' > $out/bin/hyoketsu
-          chmod +x $out/bin/hyoketsu
         '';
       };
-      docker = pkgs.dockerTools.buildImage {
+      docker = pkgs.dockerTools.buildLayeredImage {
         name = "hyoketsu";
+        fromImage = pkgs.dockerTools.pullImage {
+          imageName = "denoland/deno";
+          imageDigest = "sha256:486dd83683ece58367450d9ce190205384ee03d1ec9e30b7406a2295a968f699";
+          sha256 = "sha256-A/ljUnYep52sJ3p38PaM3bVV6j++5yed01Wn7KJoU4k=";
+        };
         config = {
           ExposedPorts = {"8000" = {};};
-          Cmd = ["${self.packages.${system}.default}/bin/hyoketsu"];
+          Cmd = ["deno" "run" "-A" "${self.packages.${system}.default}/bin/main.ts"];
         };
       };
     });
