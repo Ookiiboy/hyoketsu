@@ -23,6 +23,7 @@
     ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
+    # This just holds metadata about the project to reuse across the file.
     meta = rec {
       version = "1.0.0";
       name = "hyoketsu";
