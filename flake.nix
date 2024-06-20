@@ -27,6 +27,7 @@
       version = "1.0.0";
       name = "hyoketsu";
       pname = name;
+      tag = version;
     };
   in {
     packages = forAllSystems (system: let
@@ -34,7 +35,7 @@
     in rec {
       default = docker;
       hyoketsu = pkgs.stdenv.mkDerivation {
-        inherit meta;
+        inherit (meta) version pname;
         src = ./.;
         # Don't build because dependencies are gathered on first run by Deno.
         # Should still be reproduceable because of deno.lock.
@@ -61,8 +62,7 @@
         '';
       };
       docker = pkgs.dockerTools.buildLayeredImage {
-        inherit meta;
-        tag = meta.version;
+        inherit (meta) name tag;
         fromImage = pkgs.dockerTools.pullImage {
           imageName = "denoland/deno";
           # Manifest Digest, not Index Digest
