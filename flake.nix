@@ -23,13 +23,18 @@
     ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
+    meta = rec {
+      version = "1.0.0";
+      name = "hyoketsu";
+      pname = name;
+    };
   in {
     packages = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
-    in {
-      default = pkgs.stdenv.mkDerivation {
-        pname = "hyoketsu";
-        version = "1.0.0";
+    in rec {
+      default = docker;
+      hyoketsu = pkgs.stdenv.mkDerivation {
+        inherit meta;
         src = ./.;
         # Don't build because dependencies are gathered on first run by Deno.
         # Should still be reproduceable because of deno.lock.
@@ -56,7 +61,8 @@
         '';
       };
       docker = pkgs.dockerTools.buildLayeredImage {
-        name = "hyoketsu";
+        inherit meta;
+        tag = meta.version;
         fromImage = pkgs.dockerTools.pullImage {
           imageName = "denoland/deno";
           # Manifest Digest, not Index Digest
@@ -67,7 +73,7 @@
           ExposedPorts = {"8000" = {};};
           # We should figure out exactly what runtime permissions we need. -A is
           # less than ideal.
-          Cmd = ["deno" "run" "-A" "${self.packages.${system}.default}/bin/main.ts"];
+          Cmd = ["deno" "run" "-A" "${hyoketsu}/bin/main.ts"];
         };
       };
     });
