@@ -27,7 +27,7 @@
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
     # This just holds metadata about the project to reuse across the file.
     meta = rec {
-      version = "1.0.0";
+      version = "${nixpkgs.lib.substring 0 8 self.lastModifiedDate}.${self.shortRev or "dirty"}";
       name = "hyoketsu";
       pname = name;
       tag = version;
@@ -37,7 +37,7 @@
       pkgs = import nixpkgs {inherit system;};
     in rec {
       default = docker;
-      hyoketsu = pkgs.stdenv.mkDerivation {
+      "${meta.name}" = pkgs.stdenv.mkDerivation {
         inherit (meta) version pname;
         src = ./.;
         # Don't build because dependencies are gathered on first run by Deno.
@@ -76,7 +76,7 @@
           ExposedPorts = {"8000" = {};};
           # We should figure out exactly what runtime permissions we need. -A is
           # less than ideal.
-          Cmd = ["deno" "run" "-A" "${hyoketsu}/bin/main.ts"];
+          Cmd = ["deno" "run" "-A" "${meta.name}/bin/main.ts"];
         };
       };
     });
