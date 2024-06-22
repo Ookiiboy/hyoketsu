@@ -27,7 +27,7 @@
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
     # This just holds metadata about the project to reuse across the file.
     meta = rec {
-      version = "${nixpkgs.lib.substring 0 8 self.lastModifiedDate}.${self.shortRev or "dirty"}";
+      version = "${self.shortRev or "dirty"}";
       name = "hyoketsu";
       pname = name;
       tag = version;
@@ -37,15 +37,12 @@
       pkgs = import nixpkgs {inherit system;};
     in rec {
       default = docker;
-      "${meta.name}" = pkgs.stdenv.mkDerivation {
+      hyoketsu = pkgs.stdenv.mkDerivation {
         inherit (meta) version pname;
         src = ./.;
         # Don't build because dependencies are gathered on first run by Deno.
         # Should still be reproduceable because of deno.lock.
         dontBuild = true;
-        # if you're going to run from `result` directory, you should make sure
-        # you're loading through this project's dev-shell. This isn't a true
-        # "package".
         installPhase = ''
           DEPS=(
             "components"
@@ -64,19 +61,23 @@
           cp -r "''${DEPS[@]}" $out/bin
         '';
       };
-      docker = pkgs.dockerTools.buildLayeredImage {
+      # This makes sure deno is in the path (with any other deps) and runs the
+      # server. This is here so we can run with the server with deps, the same
+      # way as the server itself.
+      hyoketsuRunScript = pkgs.writeShellApplication {
+        name = "${meta.name}";
+        runtimeInputs = with pkgs; [deno self.packages.${system}.hyoketsu];
+        # We should figure out exactly what runtime permissions we need. -A is
+        # less than ideal.
+        text = ''
+          deno run -A ${self.packages.${system}.hyoketsu}/bin/main.ts
+        '';
+      };
+      docker = pkgs.dockerTools.buildImage {
         inherit (meta) name tag;
-        fromImage = pkgs.dockerTools.pullImage {
-          imageName = "denoland/deno";
-          # Manifest Digest, not Index Digest
-          imageDigest = "sha256:b02e55678bc0863f1a21c0054a871bf320a8f0f44157bad573b0339e8fea6277";
-          sha256 = "sha256-A/ljUnYep52sJ3p38PaM3bVV6j++5yed01Wn7KJoU4k=";
-        };
         config = {
           ExposedPorts = {"8000" = {};};
-          # We should figure out exactly what runtime permissions we need. -A is
-          # less than ideal.
-          Cmd = ["deno" "run" "-A" "${meta.name}/bin/main.ts"];
+          Cmd = ["${hyoketsuRunScript}/bin/hyoketsu"];
         };
       };
     });
@@ -149,6 +150,7 @@
             nix-testcafe.packages.${system}.default
             gnumake
             deno
+            nix-tree
             # Typescript LSP for SublimeText runs on node
             nodejs_20
           ]
