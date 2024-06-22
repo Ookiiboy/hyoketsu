@@ -4,6 +4,7 @@
     systems.url = "github:nix-systems/default";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-plop.url = "gitlab:cbleslie/nix-plop";
+    nix-testcafe.url = "gitlab:cbleslie/nix-testcafe";
 
     # Non-flake
     stylelint-config-recommended.url = "github:stylelint/stylelint-config-recommended";
@@ -18,6 +19,7 @@
     nixpkgs,
     pre-commit-hooks,
     nix-plop,
+    nix-testcafe,
     stylelint-config-recommended,
     editorconfig,
     ...
@@ -144,6 +146,7 @@
         buildInputs = with pkgs;
           [
             nix-plop.packages.${system}.default
+            nix-testcafe.packages.${system}.default
             gnumake
             deno
             # Typescript LSP for SublimeText runs on node
