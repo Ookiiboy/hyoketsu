@@ -66,11 +66,11 @@
       # way as the server itself.
       hyoketsuRunScript = pkgs.writeShellApplication {
         name = "${meta.name}";
-        runtimeInputs = with pkgs; [deno self.packages.${system}.hyoketsu];
+        runtimeInputs = with pkgs; [deno hyoketsu];
         # We should figure out exactly what runtime permissions we need. -A is
         # less than ideal.
         text = ''
-          deno run -A ${self.packages.${system}.hyoketsu}/bin/main.ts
+          deno run -A ${hyoketsu}/bin/main.ts
         '';
       };
       docker = pkgs.dockerTools.buildImage {
