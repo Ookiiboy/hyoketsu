@@ -65,7 +65,7 @@
       # server. This is here so we can run with the server with deps, the same
       # way as the server itself.
       hyoketsuRunScript = pkgs.writeShellApplication {
-        name = "${meta.name}";
+        inherit (meta) name;
         runtimeInputs = with pkgs; [deno hyoketsu];
         # We should figure out exactly what runtime permissions we need. -A is
         # less than ideal.
