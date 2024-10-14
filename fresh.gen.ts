@@ -15,7 +15,7 @@ import * as $poll_id_share from './routes/poll/[id]/share.tsx';
 import * as $poll_new from './routes/poll/new.tsx';
 import * as $AutoRefreshingBarGraph from './islands/AutoRefreshingBarGraph.tsx';
 import * as $ShareButton from './islands/ShareButton.tsx';
-import { type Manifest } from '$fresh/server.ts';
+import type { Manifest } from '$fresh/server.ts';
 
 const manifest = {
   routes: {
