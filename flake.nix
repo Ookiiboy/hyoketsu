@@ -1,10 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/43984407b569e852b346fa5b441e60d9071add3b";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-plop.url = "gitlab:cbleslie/nix-plop";
     nix-testcafe.url = "gitlab:cbleslie/nix-testcafe";
+    ignoreBoy.url = "github:Ookiiboy/ignoreBoy";
 
     # Non-flake
     stylelint-config-recommended.url = "github:stylelint/stylelint-config-recommended";
@@ -22,6 +23,7 @@
     nix-testcafe,
     stylelint-config-recommended,
     editorconfig,
+    ignoreBoy,
     ...
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (import systems);
@@ -130,6 +132,25 @@
     });
     devShells = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
+      ignoreSettings = {
+        ignores = ["Node" "community/JavaScript/Vue"];
+        # Anything custom you might want in your .gitignore you can place in extraConfig.
+        extraConfig = ''
+          .env
+          .env.development.local
+          .env.test.local
+          .env.production.local
+          .env.local
+          # Fresh build directory
+          _fresh/
+          # npm dependencies
+          node_modules/
+          .pre-commit-config.yaml
+          # Symlinked Flake Inputs
+          stylelint.config.mjs
+          .editorconfig
+        '';
+      };
     in {
       default = pkgs.mkShell {
         name = "Local Development Shell";
@@ -141,6 +162,7 @@
           ln -sf ${stylelint-config-recommended}/index.js ./stylelint.config.mjs
           ln -sf ${editorconfig}/.editorconfig ./.editorconfig
           ${self.checks.${system}.pre-commit-check.shellHook}
+          ${ignoreBoy.lib.${system}.gitignore ignoreSettings}
         '';
         ENV = "dev"; # Used in the event we need a development environment hook.
         PORT = 6969; # Sets the development server's port
